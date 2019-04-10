@@ -1,17 +1,30 @@
 <template>
   <div class="app">
+    <AppHeader fixed>
+      <b-navbar-nav class="">
+        <b-nav-item class="px-3" to="/pages">Страницы</b-nav-item>
+        <b-nav-item class="px-3" to="/users" exact>Users</b-nav-item>
+        <b-nav-item class="px-3">Settings</b-nav-item>
+      </b-navbar-nav>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item class="d-md-down-none">
+          <i class="icon-bell"></i>
+          <b-badge pill variant="danger">5</b-badge>
+        </b-nav-item>
+        <b-nav-item class="d-md-down-none">
+          <i class="icon-list"></i>
+        </b-nav-item>
+        <b-nav-item class="d-md-down-none">
+          <i class="icon-location-pin"></i>
+        </b-nav-item>
+        <DefaultHeaderDropdownAccnt/>
+      </b-navbar-nav>
+    </AppHeader>
     <div class="app-body">
-     
-      <main class="main">
-        <Breadcrumb :list="list"/>
-        <div class="container-fluid">
-          <router-view></router-view>
-        </div>
+
+      <main class="main py-4">
+        <router-view></router-view>
       </main>
-      <AppAside fixed>
-        <!--aside-->
-        <DefaultAside/>
-      </AppAside>
     </div>
     <TheFooter>
       <!--footer-->
@@ -33,6 +46,8 @@ import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFoot
 import DefaultAside from './DefaultAside'
 import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt'
 
+import { SlickList, SlickItem } from 'vue-slicksort';
+
 export default {
   name: 'DefaultContainer',
   components: {
@@ -53,7 +68,7 @@ export default {
   },
   data () {
     return {
-      //nav: nav.items
+
     }
   },
   computed: {
@@ -63,6 +78,6 @@ export default {
     list () {
       return this.$route.matched.filter((route) => route.name || route.meta.label )
     }
-  }
+  },
 }
 </script>

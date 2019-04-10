@@ -7,6 +7,12 @@ const DefaultContainer = () => import('@/containers/DefaultContainer')
 // Views
 const PagesView = () => import('@/views/PagesView/PagesView')
 
+// Views - Pages
+const Login = () => import('@/views/pages/Login')
+const Register = () => import('@/views/pages/Register')
+const Page404 = () => import('@/views/pages/Page404')
+const Page500 = () => import('@/views/pages/Page500')
+
 Vue.use(Router)
 
 export default new Router({
@@ -27,5 +33,25 @@ export default new Router({
         },
       ]
     },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register,
+    },
+    {
+      path: '/500',
+      name: 'Page500',
+      component: Page500,
+    },
+    {
+        path: '**',
+        name: 'Page404',
+        component: Page404
+    }
   ]
 })

@@ -8,11 +8,11 @@
 			<div class="sensor"></div>
 			<div class="speaker"></div>
 			<div class="screen page">
-				<div class="root">
-					<SortableList lockAxis="y" v-model="items" :useDragHandle="true">
-						<SortableItem v-for="(item, index) in items" :index="index" :key="index" :item="item"/>
-					</SortableList>
-				</div>
+				<SortableList lockAxis="y" v-model="items" :useDragHandle="true">
+					<SortableItem v-for="(item, index) in items" :index="index" :key="index" :item="item"/>
+				</SortableList>
+
+				<a href="#">Добавить новый блок</a>
 			</div>
 			<div class="home"></div>
 			<div class="bottom-bar"></div>

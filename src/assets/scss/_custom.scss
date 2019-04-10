@@ -226,17 +226,20 @@ body {
 	}
 
 	.block-handle {
-		top: 50%;
-		transform: translateY(-50%);
+		top: 0;
+		bottom: 0;
 		left: -100px;
 		width: 30px;
-		height: 100%;
 		opacity: .6;
+		border-radius: 2px;
 		position: absolute;
 		background: #273444;
 		cursor: -webkit-grab;
 		transition: opacity .15s ease;
-		border-radius: 2px;
+
+		&:hover {
+			opacity: 1;
+		}
 
 		span {
 			top: 50%;

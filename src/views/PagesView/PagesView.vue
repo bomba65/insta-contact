@@ -8,9 +8,8 @@
 			<div class="sensor"></div>
 			<div class="speaker"></div>
 			<div class="screen page">
-				<component :is="text"></component>
-				<SortableList lockAxis="y" v-model="items" :useDragHandle="true">
-					<SortableItem v-for="(item, index) in items" :index="index" :key="index" :item="item" :text="text"/>
+				<SortableList lockAxis="y" v-model="blocks" :useDragHandle="true">
+					<SortableItem v-for="(block, index) in blocks" :index="index" :key="index" :item="block"/>
 				</SortableList>
 
 				<b-button type="button" variant="primary" @click="showModal = true" class="">Добавить новый блок</b-button>
@@ -91,6 +90,7 @@ import TextBlockModal from '../../components/BlockModals/TextBlockModal'
 import AvatarBlockModal from '../../components/BlockModals/AvatarBlockModal'
 
 import TextBlock from '../../components/Blocks/TextBlock'
+import AvatarBlock from '../../components/Blocks/AvatarBlock'
 
 const SortableList = {
 	mixins: [ContainerMixin],
@@ -103,15 +103,15 @@ const SortableList = {
 
 const SortableItem = {
 	mixins: [ElementMixin],
-	props: ['item', 'text'],
+	props: ['item'],
 	directives: { handle: HandleDirective },
+	components: {TextBlock, AvatarBlock},
 	template: `
 	<div class="blocks-list-item" style="z-index: 3;">
-	<div class="block-text">
-	<div v-handle class="block-handle"><span></span></div>
-	{{item}}
-	<component :is="text"></component>
-	</div>
+		<div class="block-text">
+		<div v-handle class="block-handle"><span></span></div>
+			<component :is="item.type" :data="item.data"></component>
+		</div>
 	</div>
 	`
 };
@@ -120,7 +120,6 @@ export default {
 	name: 'Pages',
 	data() {
 		return {
-			text: 'TextBlock',
 			showModal: false,
 			currentModal: null,
     		modalsArray: [
@@ -143,7 +142,11 @@ export default {
 		SortableList,
 		TextBlockModal,
 		AvatarBlockModal,
-		TextBlock,
+	},
+	computed: {
+		blocks() {
+            return this.$store.getters['blocks/getBlocks']
+        },
 	},
 	methods: {
         handleShowModal(event, value) {
@@ -152,7 +155,6 @@ export default {
         },
         handleHideModal(event, value) {
             this.currentModal = null
-            console.log('asd')
         },
         swapModal(modal) {
 	    	this.currentModal = modal

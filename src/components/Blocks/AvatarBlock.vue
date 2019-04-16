@@ -1,6 +1,9 @@
 <template>
-    <div>
-      {{ data.text }}
+    <div :class="data.size">
+       <img
+        src="img/avatars/6.jpg"
+        class="img-avatar"
+        alt="admin@bootstrapmaster.com" />
     </div>
 </template>
 

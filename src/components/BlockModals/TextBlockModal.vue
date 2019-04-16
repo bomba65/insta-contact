@@ -8,7 +8,7 @@
               <b-form-textarea
                 id="textarea-default"
                 placeholder=""
-                v-model="textarea"
+                v-model="block.data.text"
               ></b-form-textarea>
             </b-col>
         </b-row>
@@ -24,7 +24,7 @@
             <b-button
               variant="primary"
               class="float-right"
-              @click="goBack"
+              @click="addBlock"
             >
               Сохранить
             </b-button>
@@ -38,13 +38,22 @@
         data() {
             return {
                 showModal: true,
-                textarea: '',
+                block: {
+                  type: 'TextBlock',
+                  data: {
+                    text: ''
+                  }
+                }
             }
         },
         methods: {
             goBack() {
                 this.$emit('go-back');
-            }
+            },
+            addBlock() {
+                this.$store.commit('blocks/addBlock', this.block)
+                this.$emit('close')
+            },
         },
         computed: {
             

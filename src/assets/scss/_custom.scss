@@ -218,6 +218,7 @@ body {
 
 .blocks-list-item {
 	color: #000;
+	cursor: pointer;
 	text-align: left;
 	position: relative;
 
@@ -272,6 +273,34 @@ body {
 		.block-handle {
 			left: 0;
 		}
+	}
+}
+
+.block-modal {
+
+	.nav-tabs {
+		margin: -10px -16px 15px;
+		.nav-link {
+			border: none;
+			border-bottom: 1px solid transparent;
+		}
+
+		.nav-link.active, .nav-link:hover, .nav-tabs .nav-link:focus {
+			border: none;
+			border-bottom: 1px solid $primary;
+		}
+	}
+	.tab-content {
+		border: none;
+	}
+	.tab-content .tab-pane {
+		padding: 0;
+	}
+}
+
+.block-modal-cards {
+	.block-modal-card {
+		cursor: pointer;
 	}
 }
 

@@ -1,57 +1,37 @@
 <template>
-    <b-modal title="Текст" size="lg" class="modal-primary block-modal" v-model="showModal" @hidden="$emit('close')">
+    <b-modal title="Ссылка" size="lg" class="modal-primary block-modal" v-model="showModal" @hidden="$emit('close')">
       <b-tabs>
-        <b-tab title="Текст" active>
+        <b-tab title="Ссылка" active>
           <b-row>
-            <b-col sm="6">
-              <b-form-group >
-                <label>Размер текста</label>
+            <b-col sm="12">
+                <label>Текст ссылки</label>
+                <b-form-input type="text" v-model="block.data.title" placeholder="Заголовок"></b-form-input>
+                <b-form-input type="text" v-model="block.data.subtitle" placeholder="Подзаголовок" class="mt-2"></b-form-input>
+            </b-col>
+            <b-col sm="12" class="mt-3">
+                <label>Открыть сайт</label>
+            </b-col>
+            <b-col sm="4">
                 <b-form-select
-                  :plain="true"
-                  v-model="block.data.size"
-                  :options="[
-                  {
-                    text: 'Маленький размер',
-                    value: 'small'
+                    :plain="true"
+                    v-model="block.data.linkType"
+                    :options="[
+                    {
+                    text: 'Открыть сайт',
+                    value: 'site'
                     }, {
-                    text: 'Средний размер',
-                    value: 'normal'
+                    text: 'Отправить эл.письмо',
+                    value: 'email'
                     }, {
-                    text: 'Большой размер',
-                    value: 'big'
+                    text: 'Позвонить',
+                    value: 'tel'
                     }]">
                 </b-form-select>
-              </b-form-group>
             </b-col>
-            <b-col sm="6">
-              <b-form-group >
-                <label>Выравнивание</label>
-                <b-form-select
-                  :plain="true"
-                  v-model="block.data.align"
-                  :options="[
-                  {
-                    text: 'По левому краю',
-                    value: 'text-left'
-                    }, {
-                    text: 'По центру',
-                    value: 'text-center'
-                    }, {
-                    text: 'По правому краю',
-                    value: 'text-right'
-                    }]">
-                </b-form-select>
-              </b-form-group>
-            </b-col>
-            <b-col sm="12">
-              <label for="textarea-default">Текст</label>
-            </b-col>
-            <b-col sm="12">
-              <b-form-textarea
-                id="textarea-default"
-                placeholder=""
-                v-model="block.data.text"
-              ></b-form-textarea>
+            <b-col sm-8>
+                <b-form-input v-if="block.data.linkType == 'site'" type="text" v-model="block.data.link" placeholder="http://"></b-form-input>
+                <b-form-input v-if="block.data.linkType == 'email'" type="text" v-model="block.data.link" placeholder="example@example.com"></b-form-input>
+                <b-form-input v-if="block.data.linkType == 'tel'" type="text" v-model="block.data.link" placeholder="+7 775 777 77 77"></b-form-input>
             </b-col>
           </b-row>
         </b-tab>
@@ -99,11 +79,12 @@
           block: {
             type: Object,
             default: () => ({
-              type: 'TextBlock',
+              type: 'LinkBlock',
               data: {
-                text: '',
-                size: 'small',
-                align: 'text-left',
+                title: '',
+                subtitle: '',
+                linkType: 'site',
+                link: '',
               }
             }),
           },

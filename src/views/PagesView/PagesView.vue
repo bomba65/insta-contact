@@ -17,54 +17,12 @@
 			<div class="home"></div>
 			<div class="bottom-bar"></div>
 		</div>
-		<b-modal title="Добавить новый блок" size="lg" class="modal-primary" v-model="showModal">
+		<b-modal title="Добавить новый блок" size="lg" class="modal-primary block-modal-cards" v-model="showModal">
 			<b-row>
-				<b-col sm="4" md="3" @click="swapModal(modal.tag)" v-for="modal in modalsArray">
+				<b-col class="block-modal-card" sm="4" md="3" @click="swapModal(modal.tag)" v-for="modal in modalsArray">
 					<b-card :header="modal.text" class="text-center">
 						<div class="d-flex justify-content-center align-content-center">
 							<i class="fa fa-2x" :class="modal.icon"></i>
-						</div>
-					</b-card>
-				</b-col>
-				<b-col sm="4" md="3">
-					<b-card header="Ссылка" class="text-center">
-						<div class="d-flex justify-content-center align-content-center">
-							<i class="fa fa-link fa-2x"></i>
-						</div>
-					</b-card>
-				</b-col>
-				<b-col sm="4" md="3">
-					<b-card header="Аватар" class="text-center">
-						<div class="d-flex justify-content-center align-content-center">
-							<i class="fa fa-user-circle-o fa-2x"></i>
-						</div>
-					</b-card>
-				</b-col>
-				<b-col sm="4" md="3">
-					<b-card header="Текстовый блок" class="text-center">
-						<div class="d-flex justify-content-center align-content-center">
-							<i class="fa fa-font fa-2x"></i>
-						</div>
-					</b-card>
-				</b-col>
-				<b-col sm="4" md="3">
-					<b-card header="Текстовый блок" class="text-center">
-						<div class="d-flex justify-content-center align-content-center">
-							<i class="fa fa-font fa-2x"></i>
-						</div>
-					</b-card>
-				</b-col>
-				<b-col sm="4" md="3">
-					<b-card header="Текстовый блок" class="text-center">
-						<div class="d-flex justify-content-center align-content-center">
-							<i class="fa fa-font fa-2x"></i>
-						</div>
-					</b-card>
-				</b-col>
-				<b-col sm="4" md="3">
-					<b-card header="Текстовый блок" class="text-center">
-						<div class="d-flex justify-content-center align-content-center">
-							<i class="fa fa-font fa-2x"></i>
 						</div>
 					</b-card>
 				</b-col>
@@ -85,12 +43,26 @@
 
 <script>
 
-import { ContainerMixin, ElementMixin, HandleDirective } from 'vue-slicksort';
+import { ContainerMixin, ElementMixin, HandleDirective } from 'vue-slicksort'
 import TextBlockModal from '../../components/BlockModals/TextBlockModal'
 import AvatarBlockModal from '../../components/BlockModals/AvatarBlockModal'
+import LinkBlockModal from '../../components/BlockModals/LinkBlockModal'
+import SeparatorBlockModal from '../../components/BlockModals/SeparatorBlockModal'
+import SocialLinksBlockModal from '../../components/BlockModals/SocialLinksBlockModal'
+import VideoBlockModal from '../../components/BlockModals/VideoBlockModal'
+import FAQBlockModal from '../../components/BlockModals/FAQBlockModal'
+import MapBlockModal from '../../components/BlockModals/MapBlockModal'
+import MessengersBlockModal from '../../components/BlockModals/MessengersBlockModal'
 
 import TextBlock from '../../components/Blocks/TextBlock'
 import AvatarBlock from '../../components/Blocks/AvatarBlock'
+import LinkBlock from '../../components/Blocks/LinkBlock'
+import SeparatorBlock from '../../components/Blocks/SeparatorBlock'
+import SocialLinksBlock from '../../components/Blocks/SocialLinksBlock'
+import VideoBlock from '../../components/Blocks/VideoBlock'
+import FAQBlock from '../../components/Blocks/FAQBlock'
+import MapBlock from '../../components/Blocks/MapBlock'
+import MessengersBlock from '../../components/Blocks/MessengersBlock'
 
 const SortableList = {
 	mixins: [ContainerMixin],
@@ -105,7 +77,15 @@ const SortableItem = {
 	mixins: [ElementMixin],
 	props: ['item'],
 	directives: { handle: HandleDirective },
-	components: {TextBlock, AvatarBlock},
+	components: {
+		TextBlock,
+		AvatarBlock,
+		LinkBlock,
+		SeparatorBlock,
+		MapBlock,
+		VideoBlock,
+		FAQBlock
+	},
 	template: `
 	<div class="blocks-list-item" style="z-index: 3;">
 		<div class="block-text">
@@ -129,12 +109,51 @@ export default {
     				icon: 'fa-font'
     			},
     			{
+    				tag: 'LinkBlockModal',
+    				text: 'Ссылка',
+    				icon: 'fa-link'
+    			},
+    			{
+    				tag: 'SeparatorBlockModal',
+    				text: 'Разделитель',
+    				icon: 'fa-minus'
+    			},
+    			{
     				tag: 'AvatarBlockModal',
     				text: 'Аватар',
     				icon: 'fa-user-circle-o'
-    			}
+    			},
+    			{
+    				tag: 'FAQBlockModal',
+    				text: 'Вопросы и ответы',
+    				icon: 'fa-question'
+    			},
+    			{
+    				tag: 'MessengersBlockModal',
+    				text: 'Месссенджеры',
+    				icon: 'fa-comments-o'
+    			},
+    			{
+    				tag: 'VideoBlockModal',
+    				text: 'Видео',
+    				icon: 'fa-play-circle'
+					},
+    			{
+    				tag: 'CarouselBlockModal',
+    				text: 'Карусель картинок',
+    				icon: 'fa-image'
+    			},
+    			{
+    				tag: 'SocialLinksBlockModal',
+    				text: 'Социальные сети',
+    				icon: 'fa-share-alt'
+    			},
+    			{
+    				tag: 'MapBlockModal',
+    				text: 'Карта',
+    				icon: 'fa-map-marker'
+    			},
     		],
-			items: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8']
 		};
 	},
 	components: {
@@ -142,11 +161,23 @@ export default {
 		SortableList,
 		TextBlockModal,
 		AvatarBlockModal,
+		LinkBlockModal,
+		SeparatorBlockModal,
+		MapBlockModal,
+		MessengersBlockModal,
+		VideoBlockModal,
+		FAQBlockModal,
+		SocialLinksBlockModal
 	},
 	computed: {
-		blocks() {
-            return this.$store.getters['blocks/getBlocks']
-        },
+		blocks: {
+			get() {
+				return this.$store.getters['blocks/getBlocks']
+			},
+			set(i) {
+				this.$store.commit('blocks/setBlocks', i)
+			}
+		},
 	},
 	methods: {
         handleShowModal(event, value) {
@@ -157,8 +188,8 @@ export default {
             this.currentModal = null
         },
         swapModal(modal) {
-	    	this.currentModal = modal
-	    }
+					this.currentModal = modal
+				}
     },
 }
 </script>

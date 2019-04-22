@@ -1,32 +1,27 @@
 <template>
-    <b-modal title="Аватар" size="lg" class="modal-primary" v-model="showModal" @hidden="$emit('close')">
-        <b-row class="mt-2">
+    <b-modal title="Разделитель" size="lg" class="modal-primary block-modal" v-model="showModal" @hidden="$emit('close')">
+        <b-row>
             <b-col sm="12">
-              <label for="textarea-default">Текст</label>
-            </b-col>
-            <b-col sm="12">
-              <b-form-group >
-                <label>Размер аватара</label>
+                <label>Размер разделителя</label>
                 <b-form-select
-                  :plain="true"
-                  v-model="block.data.size"
-                  :options="[
-                  {
-                    text: 'Маленький размер (65x65)',
-                    value: 'small'
+                    :plain="true"
+                    v-model="block.data.margin"
+                    :options="[
+                    {
+                    text: 'Маленький отступ',
+                    value: '30'
                     }, {
-                    text: 'Средний размер (95x95)',
-                    value: 'normal'
+                    text: 'Средний отступ',
+                    value: '40'
                     }, {
-                    text: 'Большой размер (125x125)',
-                    value: 'big'
+                    text: 'Большой отступ',
+                    value: '50'
                     }]">
                 </b-form-select>
-              </b-form-group>
             </b-col>
         </b-row>
-        <div slot="modal-footer" class="w-100">
-            <b-button
+      <div slot="modal-footer" class="w-100">
+          <b-button
             v-if="updateBlock"
             variant="danger"
             class="float-left align-items-center"
@@ -51,7 +46,7 @@
           >
             Сохранить
           </b-button>
-        </div>
+      </div>
     </b-modal>
 </template>
 
@@ -67,9 +62,9 @@
           block: {
             type: Object,
             default: () => ({
-              type: 'AvatarBlock',
+              type: 'SeparatorBlock',
               data: {
-                size: 'small'
+                  margin: '30'
               }
             }),
           },
@@ -86,17 +81,5 @@
                 this.$emit('close')
             },
         },
-        computed: {
-            
-        },
-        mounted() {
-            
-        },
-        beforeDestroy() {
-            
-        }
     }
 </script>
-
-<style scoped="">
-</style>

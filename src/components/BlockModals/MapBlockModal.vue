@@ -1,32 +1,24 @@
 <template>
-    <b-modal title="Аватар" size="lg" class="modal-primary" v-model="showModal" @hidden="$emit('close')">
-        <b-row class="mt-2">
+    <b-modal title="Карта" size="lg" class="modal-primary block-modal" v-model="showModal" @hidden="$emit('close')">
+      <b-tabs>
+        <b-tab title="Карта" active>
+          <b-row>
             <b-col sm="12">
-              <label for="textarea-default">Текст</label>
+              <label for="textarea-default">Код карты</label>
             </b-col>
             <b-col sm="12">
-              <b-form-group >
-                <label>Размер аватара</label>
-                <b-form-select
-                  :plain="true"
-                  v-model="block.data.size"
-                  :options="[
-                  {
-                    text: 'Маленький размер (65x65)',
-                    value: 'small'
-                    }, {
-                    text: 'Средний размер (95x95)',
-                    value: 'normal'
-                    }, {
-                    text: 'Большой размер (125x125)',
-                    value: 'big'
-                    }]">
-                </b-form-select>
-              </b-form-group>
+              <b-form-textarea
+                id="textarea-default"
+                placeholder=""
+                v-model="block.data.mapCode"
+              ></b-form-textarea>
             </b-col>
-        </b-row>
-        <div slot="modal-footer" class="w-100">
-            <b-button
+          </b-row>
+        </b-tab>
+        <b-tab title="Настройки"></b-tab>
+      </b-tabs>
+      <div slot="modal-footer" class="w-100">
+          <b-button
             v-if="updateBlock"
             variant="danger"
             class="float-left align-items-center"
@@ -51,7 +43,7 @@
           >
             Сохранить
           </b-button>
-        </div>
+      </div>
     </b-modal>
 </template>
 
@@ -67,9 +59,9 @@
           block: {
             type: Object,
             default: () => ({
-              type: 'AvatarBlock',
+              type: 'MapBlock',
               data: {
-                size: 'small'
+                mapCode: '',
               }
             }),
           },

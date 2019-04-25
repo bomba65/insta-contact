@@ -49,7 +49,7 @@
     const SortableList = {
         mixins: [ContainerMixin],
         template: `
-        <div class="questions-list">
+        <div class="form-fields-item-list">
         <slot />
         </div>
         `
@@ -60,9 +60,9 @@
         props: ['item'],
         directives: { handle: HandleDirective },
         template: `
-        <div class="questions-list-item mb-3">
-            <div class="question-header">
-                <div v-handle class="question-handle"><span></span></div>
+        <div class="form-fields-item">
+            <div class="form-fields-item-header">
+                <div v-handle class="form-fields-item-handle"><span></span></div>
                 <span>
                     <template v-if="item.title == ''">Заголовок</template>
                     {{ item.title }}
@@ -70,7 +70,7 @@
                 <a href="#" class="text-danger" @click="$emit('delete-item')"><i class="fa fa-lg fa-trash-o"></i></a>
             </div>
 
-            <div class="question-body">
+            <div class="form-fields-item-body">
                 <label>Заголовок</label>
                 <b-form-input type="text" v-model="item.title" class="mb-2"></b-form-input>
                 
@@ -136,68 +136,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .questions-list-item {
-        z-index: 2000;
-        background: #eee;
-        border-radius: 2px;
-
-        .question-header {
-            display: flex;
-            position: relative;
-            align-items: center;
-            padding-left: 40px;
-            justify-content: space-between;
-
-            a {
-                padding: 10px;
-            }
-        }
-
-        .question-body {
-            padding: 15px;
-        }
-    }
-    .question-handle {
-		top: 0;
-		bottom: 0;
-		left: 0;
-		width: 30px;
-		opacity: .6;
-		border-radius: 2px;
-		position: absolute;
-		background: #273444;
-		cursor: -webkit-grab;
-		transition: opacity .15s ease;
-
-		&:hover {
-			opacity: 1;
-		}
-
-		span {
-			top: 50%;
-			left: 50%;
-			width: 15px;
-			height: 2px;
-			display: block;
-			background: #fff;
-			position: absolute;
-			transform: translate(-50%,-50%);
-
-			&::before, &::after {
-				left: 0;
-				right: 0;
-				top: -5px;
-				content: '';
-				height: 2px;
-				background: #fff;
-				position: absolute;
-			}
-			&::after {
-				top: initial;
-				bottom: -5px;
-			}
-		}
-	}
-</style>

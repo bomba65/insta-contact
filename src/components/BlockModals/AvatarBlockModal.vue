@@ -13,13 +13,13 @@
                   :options="[
                   {
                     text: 'Маленький размер (65x65)',
-                    value: 'small'
+                    value: '65'
                     }, {
                     text: 'Средний размер (95x95)',
-                    value: 'normal'
+                    value: '95'
                     }, {
                     text: 'Большой размер (125x125)',
-                    value: 'big'
+                    value: '125'
                     }]">
                 </b-form-select>
               </b-form-group>
@@ -69,7 +69,7 @@
             default: () => ({
               type: 'AvatarBlock',
               data: {
-                size: 'small'
+                size: '65'
               }
             }),
           },
@@ -86,15 +86,6 @@
                 this.$emit('close')
             },
         },
-        computed: {
-            
-        },
-        mounted() {
-            
-        },
-        beforeDestroy() {
-            
-        }
     }
 </script>
 

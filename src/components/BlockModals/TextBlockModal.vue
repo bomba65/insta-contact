@@ -12,13 +12,13 @@
                   :options="[
                   {
                     text: 'Маленький размер',
-                    value: 'small'
+                    value: '14px'
                     }, {
                     text: 'Средний размер',
-                    value: 'normal'
+                    value: '16px'
                     }, {
                     text: 'Большой размер',
-                    value: 'big'
+                    value: '20px'
                     }]">
                 </b-form-select>
               </b-form-group>
@@ -102,7 +102,7 @@
               type: 'TextBlock',
               data: {
                 text: '',
-                size: 'small',
+                size: '14px',
                 align: 'text-left',
               }
             }),

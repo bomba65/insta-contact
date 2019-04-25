@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="data.align" :style="'font-size: ' + data.size">
       {{ data.text }}
     </div>
 </template>

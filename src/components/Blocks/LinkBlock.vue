@@ -1,5 +1,5 @@
 <template>
-    <a :href="data.link" class="link-block">
+    <a :href="data.linkType + data.link" class="link-block">
         <span class="title">{{ data.title }}</span>
         <span class="subtitle">{{ data.subtitle }}</span>
     </a>

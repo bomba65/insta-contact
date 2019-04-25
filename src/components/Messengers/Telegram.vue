@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<a :href="'https://wa.me/' + data.phoneNumber + '?text=' + data.templateText">{{ data.linkText }}</a>
+		<a :href="'tg://resolve?domain=' + data.userName">{{ data.linkText }}</a>
 	</div>
 </template>
 

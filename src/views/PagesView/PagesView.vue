@@ -1,5 +1,17 @@
 <template>
 	<section class="section-pages">
+		<div class="container-fluid">
+			<div class="form-control-link mb-5">
+					<div class="form-control-link-text">
+						<span class="mr-3 d-md-inline d-none">Моя ссылка:</span>
+						<b-link :href="'http://localhost:8080/#/pages/link1'"><span class="d-sm-inline d-none">http://localhost:8080/#/</span>{{ selectedPage }}</b-link>
+					</div>
+					<div>
+						<b-button type="button" variant="primary" @click="showLinkEditModal = true">Редактировать</b-button>
+					</div>
+			</div>
+		</div>
+
 		<div class="marvel-device iphone6 mx-auto">
 			<div class="top-bar"></div>
 			<div class="sleep"></div>
@@ -12,7 +24,7 @@
 					<SortableItem v-for="(block, index) in blocks" :index="index" :key="index" :item="block"/>
 				</SortableList>
 
-				<b-button type="button" variant="primary" @click="showModal = true" class="">Добавить новый блок</b-button>
+				<b-button type="button" variant="primary" @click="showModal = true">Добавить новый блок</b-button>
 			</div>
 			<div class="home"></div>
 			<div class="bottom-bar"></div>
@@ -32,6 +44,22 @@
 		          variant="secondary"
 		          class="float-right"
 		          @click="showModal=false"
+		        >
+		          Закрыть
+		        </b-button>
+		      </div>
+		</b-modal>
+
+		<b-modal title="Настройка ссылки" size="lg" class="modal-primary block-modal-cards" v-model="showLinkEditModal">
+			<div>
+				<label>Ваша ссылка</label>
+				<b-form-input type="text" v-model="newLink" placeholder=""></b-form-input>
+			</div>
+			<div slot="modal-footer" class="w-100">
+		        <b-button
+		          variant="secondary"
+		          class="float-right"
+		          @click="showLinkEditModal=false"
 		        >
 		          Закрыть
 		        </b-button>
@@ -84,7 +112,8 @@ const SortableItem = {
 		SeparatorBlock,
 		MapBlock,
 		VideoBlock,
-		FAQBlock
+		FAQBlock,
+		MessengersBlock
 	},
 	template: `
 	<div class="blocks-list-item" style="z-index: 3;">
@@ -101,6 +130,8 @@ export default {
 	data() {
 		return {
 			showModal: false,
+			showLinkEditModal: false,
+			newLink: '',
 			currentModal: null,
     		modalsArray: [
     			{
@@ -170,6 +201,16 @@ export default {
 		SocialLinksBlockModal
 	},
 	computed: {
+		pages: {
+			get() {
+				return this.$store.getters['pages/getPages']
+			}
+		},
+		selectedPage: {
+			get() {
+				return this.$store.getters['pages/getSelectedPage']
+			}
+		},
 		blocks: {
 			get() {
 				return this.$store.getters['blocks/getBlocks']
@@ -195,4 +236,11 @@ export default {
 </script>
 
 <style lang='scss'>
+	.form-control-link {
+		display: flex;
+		font-size: 16px;
+		padding: 0.5rem 1rem;
+		justify-content: space-between;
+		align-items: center;
+	}
 </style>

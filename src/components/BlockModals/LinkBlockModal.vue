@@ -18,20 +18,20 @@
                     :options="[
                     {
                     text: 'Открыть сайт',
-                    value: 'site'
+                    value: ''
                     }, {
                     text: 'Отправить эл.письмо',
-                    value: 'email'
+                    value: 'mailto: '
                     }, {
                     text: 'Позвонить',
-                    value: 'tel'
+                    value: 'tel: '
                     }]">
                 </b-form-select>
             </b-col>
             <b-col sm-8>
-                <b-form-input v-if="block.data.linkType == 'site'" type="text" v-model="block.data.link" placeholder="http://"></b-form-input>
-                <b-form-input v-if="block.data.linkType == 'email'" type="text" v-model="block.data.link" placeholder="example@example.com"></b-form-input>
-                <b-form-input v-if="block.data.linkType == 'tel'" type="text" v-model="block.data.link" placeholder="+7 775 777 77 77"></b-form-input>
+                <b-form-input v-if="block.data.linkType == ''" type="text" v-model="block.data.link" placeholder="http://"></b-form-input>
+                <b-form-input v-if="block.data.linkType == 'mailto: '" type="text" v-model="block.data.link" placeholder="example@example.com"></b-form-input>
+                <b-form-input v-if="block.data.linkType == 'tel: '" type="text" v-model="block.data.link" placeholder="+7 775 777 77 77"></b-form-input>
             </b-col>
           </b-row>
         </b-tab>
@@ -83,7 +83,7 @@
               data: {
                 title: '',
                 subtitle: '',
-                linkType: 'site',
+                linkType: '',
                 link: '',
               }
             }),

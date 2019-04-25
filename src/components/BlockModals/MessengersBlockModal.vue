@@ -7,6 +7,7 @@
                 <label>Вид ссылок</label>
                 <b-form-select
                     :plain="true"
+					class="mb-3"
                     v-model="block.data.linkType"
                     :options="[
                     {
@@ -23,9 +24,9 @@
             </b-col>
 
             <b-col>
-                <SortableList lockAxis="y" v-model="messengers" :useDragHandle="true">
-					<SortableItem v-for="(messenger, index) in messengers" :index="index" :key="index" :item="messenger"/>
-				</SortableList>
+              <SortableList lockAxis="y" v-model="block.data.messengers" :useDragHandle="true">
+                <SortableItem v-for="(messenger, index) in block.data.messengers" :index="index" :key="index" :item="messenger"/>
+              </SortableList>
             </b-col>
           </b-row>
         </b-tab>
@@ -65,11 +66,12 @@
     import { ContainerMixin, ElementMixin, HandleDirective } from 'vue-slicksort'
     
     import WhatsAppForm from '../../components/Messengers/WhatsAppForm'
+    import TelegramForm from '../../components/Messengers/TelegramForm'
 
     const SortableList = {
         mixins: [ContainerMixin],
         template: `
-        <div class="messengers-list">
+        <div class="form-fields-item-list">
         <slot />
         </div>
         `
@@ -79,12 +81,23 @@
         mixins: [ElementMixin],
         props: ['item'],
         directives: { handle: HandleDirective },
+        components: {
+		  WhatsAppForm,
+		  TelegramForm
+        },
         template: `
-        <div class="messengers-list-item">
-            <div class="block-text">
-            <div v-handle class="block-handle"><span></span></div>
-                {{ item.name }}
-                <div v-html="item.html"></div>
+		<div class="form-fields-item">
+			<div class="form-fields-item-header py-3">
+                <div v-handle class="form-fields-item-handle"><span></span></div>
+                <span>
+                    {{ item.name }}
+				</span>
+				<b-form-checkbox v-model="item.isActive" switch class="custom-control custom-switch mr-3">
+				</b-form-checkbox>
+            </div>
+
+            <div class="form-fields-item-body" v-if="item.isActive">
+                <component :is="item.name + 'Form'" :data="item"></component>
             </div>
         </div>
         `
@@ -94,29 +107,7 @@
         name: 'text-block-modal',
         data() {
             return {
-                showModal: true,
-                messengers: [
-                    {
-                        name: 'WhatsApp',
-                        html : `<div>{{ item.name }}</div>`
-                    },
-                    {
-                        name: 'Telegram',
-                        html : '<div>{{ item.name }}</div>'
-                    },
-                    {
-                        name: 'ВКонтакте',
-                        html : '<div>{{ item.name }}</div>'
-                    },
-                    {
-                        name: 'Viber',
-                        html : '<div>{{ item.name }}</div>'
-                    },
-                    {
-                        name: 'Skype',
-                        html : '<div>{{ item.name }}</div>'
-                    },
-                ]
+				showModal: true,
             }
         },
         props: {
@@ -127,6 +118,19 @@
               data: {
                 linkType: 'default',
                 messengers: [
+                    {
+                        name: 'WhatsApp',
+						linkText: '',
+						phoneNumber: '',
+						templateText: '',
+						isActive: false
+					},
+					{
+                        name: 'Telegram',
+						linkText: '',
+						userName: '',
+						isActive: false
+                    }
                 ]
               }
             }),
@@ -148,15 +152,6 @@
                 this.$emit('close')
             },
         },
-        computed: {
-            
-        },
-        mounted() {
-            
-        },
-        beforeDestroy() {
-            
-        }
     }
 </script>
 

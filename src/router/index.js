@@ -6,6 +6,7 @@ const DefaultContainer = () => import('@/containers/DefaultContainer')
 
 // Views
 const PagesView = () => import('@/views/PagesView/PagesView')
+const LinksView = () => import('@/views/LinksView/LinksView')
 
 // Views - Pages
 const Login = () => import('@/views/pages/Login')
@@ -23,11 +24,16 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      redirect: 'pages',
+      redirect: 'links',
       component: DefaultContainer,
       children: [
         {
-          path: 'pages',
+          path: 'links',
+          name: 'Links',
+          component: LinksView
+        },
+        {
+          path: 'pages/:link',
           name: 'Pages',
           component: PagesView
         },

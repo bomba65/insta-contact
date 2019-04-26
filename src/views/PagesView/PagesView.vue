@@ -113,7 +113,8 @@ const SortableItem = {
 		MapBlock,
 		VideoBlock,
 		FAQBlock,
-		MessengersBlock
+		MessengersBlock,
+		SocialLinksBlock,
 	},
 	template: `
 	<div class="blocks-list-item" style="z-index: 3;">

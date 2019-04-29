@@ -4,8 +4,12 @@
   		<b-form-input type="text" v-model="data.linkText" :placeholder="'Например: Написать в ' + data.name" class="mb-3"></b-form-input>
 
 		<label>Укажите ваш номер телефона</label>
-  		<b-form-input type="text" v-model="data.phoneNumber" placeholder="+7 775 777 77 77" class="mb-3"></b-form-input>
-
+		<vue-tel-input v-model="data.phoneNumber"
+						placeholder="Укажите ваш номер телефона"
+						@onInput="onInput"
+						:preferredCountries="['kz']"
+						class="mb-3">
+		</vue-tel-input>
 		<label>Текст-шаблон сообщенияа</label>
 		<b-form-textarea
 			placeholder="Пример: Здравствуйте, как можно сделать заказ?"
@@ -15,6 +19,7 @@
 </template>
 
 <script>
+import VueTelInput from 'vue-tel-input';
 
 export default {
 	name: 'WhatsAppForm',
@@ -28,5 +33,13 @@ export default {
 			type: Object,
 		}
 	},
+	components: {
+		VueTelInput,
+	},
+	methods: {
+		onInput({ number, isValid, country }) {
+			console.log(number, isValid, country);
+		},
+	}
 }
 </script>

@@ -2,12 +2,23 @@
     <b-modal title="Видео" size="lg" class="modal-primary block-modal" v-model="showModal" @hidden="$emit('close')">
       <b-tabs>
         <b-tab title="Видео" active>
-          <b-row>
-            <b-col sm="12">
-                <label>Ссылка на видео Youtube или Vimeo</label>
-                <b-form-input type="text" v-model="block.data.link" placeholder="http://"></b-form-input>
-            </b-col>
-          </b-row>
+          	<label>Ссылка на видео в</label>
+			<b-form-select
+				class="mb-3"
+				:plain="true"
+				v-model="block.data.site"
+				:options="[
+				{
+				text: 'Youtube',
+				value: 'https://www.youtube.com/embed/'
+				}, {
+				text: 'Vimeo',
+				value: 'https://player.vimeo.com/video/'
+				}]">
+			</b-form-select>
+
+          	<label>Embed код</label>
+            <b-form-input type="text" v-model="block.data.embed" placeholder=""></b-form-input>
         </b-tab>
         <b-tab title="Настройки"></b-tab>
       </b-tabs>
@@ -55,7 +66,8 @@
             default: () => ({
               type: 'VideoBlock',
               data: {
-                link: '',
+				  site: 'https://www.youtube.com/embed/',
+				  embed: '',
               }
             }),
           },

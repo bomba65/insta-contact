@@ -1,7 +1,7 @@
 <template>
     <div>
         <iframe
-            :src="data.link">
+            :src="data.site + data.embed">
         </iframe>
     </div>
 </template>
@@ -11,7 +11,6 @@
         name: 'video-block',
         data() {
             return {
-
             }
         },
         props: ['data'],

@@ -315,7 +315,7 @@ textarea {
 	color: #fff;
 	background: #20a8d8 !important;
 
-	&:hover {
+	&:hover, &:focus {
 		color: #fff;
 		background: #1b8eb7 !important;
 	}

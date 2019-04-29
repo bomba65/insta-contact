@@ -5,8 +5,8 @@
           <b-row>
             <b-col>
                 <SortableList lockAxis="y" v-model="block.data.questions" :useDragHandle="true">
-					<SortableItem v-for="(question, index) in block.data.questions" :index="index" :key="index" :item="question"  @delete-item="deleteQuestion(index)"/>
-				</SortableList>
+                  <SortableItem v-for="(question, index) in block.data.questions" :index="index" :key="index" :item="question"  @delete-item="deleteQuestion(index)"/>
+                </SortableList>
 
                 <a href="#" @click="addNewQuestion">Добавить новый пункт</a>
             </b-col>

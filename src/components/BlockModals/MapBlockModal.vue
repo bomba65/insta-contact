@@ -4,14 +4,25 @@
         <b-tab title="Карта" active>
           <b-row>
             <b-col sm="12">
-              <label for="textarea-default">Код карты</label>
-            </b-col>
-            <b-col sm="12">
-              <b-form-textarea
-                id="textarea-default"
-                placeholder=""
-                v-model="block.data.mapCode"
-              ></b-form-textarea>
+              	<label>Выберите карту</label>
+				<b-form-select
+					:plain="true"
+					v-model="block.data.mapName"
+					:options="[
+					{
+					text: 'Google карта',
+					value: 'GoogleMap'
+					}, {
+					text: 'Яндекс карта',
+					value: 'YandexMap'
+					}, {
+					text: '2gis карта',
+					value: 'TwoGisMap'
+					}]">
+				</b-form-select>
+			    <div class="map mt-4">
+					<component :is="block.data.mapName + 'Form'"></component>
+				</div>
             </b-col>
           </b-row>
         </b-tab>
@@ -48,6 +59,9 @@
 </template>
 
 <script>
+	import GoogleMapForm from '../../components/Maps/GoogleMapForm'
+	import TwoGisMapForm from '../../components/Maps/TwoGisMapForm'
+	
     export default {
         name: 'text-block-modal',
         data() {
@@ -61,7 +75,8 @@
             default: () => ({
               type: 'MapBlock',
               data: {
-                mapCode: '',
+				mapName: 'GoogleMap',
+				mapData: {}
               }
             }),
           },
@@ -77,9 +92,17 @@
                 this.$store.commit('blocks/addBlock', this.block)
                 this.$emit('close')
             },
-        },
-    }
+		},
+		components: {
+			GoogleMapForm,
+			TwoGisMapForm
+    	}
+  }
 </script>
 
-<style scoped="">
+<style scoped>
+	.map {
+		width: 100%;
+		height: 400px;
+	}
 </style>

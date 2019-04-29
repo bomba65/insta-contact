@@ -120,15 +120,6 @@
                 this.$emit('close')
             },
         },
-        computed: {
-            
-        },
-        mounted() {
-            
-        },
-        beforeDestroy() {
-            
-        }
     }
 </script>
 

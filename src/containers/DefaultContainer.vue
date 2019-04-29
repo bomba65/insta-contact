@@ -12,7 +12,7 @@
           v-if="name === 'Pages'"
         >
           <b-dropdown-item href="#" v-for="(page, index) in pages" :key="index" @click="changePage(index)">/{{ page }}</b-dropdown-item>
-          <b-dropdown-item-button class="dropdown-primary">Добавить новую страницу</b-dropdown-item-button>
+          <b-dropdown-item-button class="dropdown-primary" @click="showNewPageModal=true">Добавить новую страницу</b-dropdown-item-button>
         </b-dropdown>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
@@ -124,7 +124,9 @@ export default {
       this.$store.commit('pages/setSelectedPage', selectedPage)
     },
     addNewPage() {
-      this.$store.commit('pages/addPage', newPageLink)
+      this.$store.commit('pages/addPage', this.newPageLink)
+      this.newPageLink = ''
+      this.showNewPageModal = false
     }
   }
 }

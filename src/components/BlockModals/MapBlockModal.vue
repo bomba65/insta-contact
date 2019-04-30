@@ -61,6 +61,7 @@
 <script>
 	import GoogleMapForm from '../../components/Maps/GoogleMapForm'
 	import TwoGisMapForm from '../../components/Maps/TwoGisMapForm'
+	import YandexMapForm from '../../components/Maps/YandexMapForm'
 	
     export default {
         name: 'text-block-modal',
@@ -95,7 +96,8 @@
 		},
 		components: {
 			GoogleMapForm,
-			TwoGisMapForm
+			TwoGisMapForm,
+			YandexMapForm
     	}
   }
 </script>

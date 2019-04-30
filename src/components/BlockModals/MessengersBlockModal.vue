@@ -119,20 +119,20 @@
                 linkType: 'default',
                 messengers: [
                     {
-                        name: 'WhatsApp',
-						linkText: '',
-						phoneNumber: '',
-						templateText: '',
-						isActive: false
-					},
-					{
-                        name: 'Telegram',
-						linkText: '',
-						userName: '',
-						isActive: false
+                      name: 'WhatsApp',
+                      linkText: '',
+                      phoneNumber: '',
+                      templateText: '',
+                      isActive: false
+                    },
+                    {
+                                  name: 'Telegram',
+                      linkText: '',
+                      userName: '',
+                      isActive: false
                     }
-                ]
-              }
+                  ]
+                }
             }),
           },
           updateBlock: {

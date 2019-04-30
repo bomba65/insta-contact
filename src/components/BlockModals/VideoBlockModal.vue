@@ -66,8 +66,8 @@
             default: () => ({
               type: 'VideoBlock',
               data: {
-				  site: 'https://www.youtube.com/embed/',
-				  embed: '',
+				        site: 'https://www.youtube.com/embed/',
+				        embed: '',
               }
             }),
           },

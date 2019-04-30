@@ -8,6 +8,7 @@
 					<b-form-select
 						:plain="true"
 						v-model="block.data.mapName"
+						@change="block.data.mapData = {markers: [],mapCode: ''}"
 						:options="[
 						{
 						text: 'Google карта',
@@ -21,7 +22,7 @@
 						}]">
 					</b-form-select>
 					<div class="map mt-4">
-						<component :is="block.data.mapName + 'Form'"></component>
+						<component :is="block.data.mapName + 'Form'" :data="block.data.mapData"></component>
 					</div>
 				</b-col>
 			</b-row>
@@ -74,11 +75,14 @@
           block: {
             type: Object,
             default: () => ({
-              type: 'MapBlock',
-              data: {
-				mapName: 'GoogleMap',
-				mapData: {}
-              }
+				type: 'MapBlock',
+				data: {
+					mapName: 'GoogleMap',
+					mapData: {
+						markers: [],
+						mapCode: ''
+					}
+				}
             }),
           },
           updateBlock: {
@@ -101,10 +105,3 @@
     	}
   }
 </script>
-
-<style scoped>
-	.map {
-		width: 100%;
-		height: 400px;
-	}
-</style>

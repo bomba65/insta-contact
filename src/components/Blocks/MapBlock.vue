@@ -1,9 +1,12 @@
 <template>
-    <div class="map-block" v-html="data.mapCode">
-    </div>
+    <component :is="data.mapName" :data="data.mapData"></component>
 </template>
 
 <script>
+    import GoogleMap from '../../components/Maps/GoogleMap'
+	import TwoGisMap from '../../components/Maps/TwoGisMap'
+    import YandexMap from '../../components/Maps/YandexMap'
+    
     export default {
         name: 'map-block',
         data() {
@@ -12,7 +15,10 @@
             }
         },
         props: ['data'],
-        methods: {
+        components: {
+            GoogleMap,
+            YandexMap,
+            TwoGisMap
         },
     }
 </script>

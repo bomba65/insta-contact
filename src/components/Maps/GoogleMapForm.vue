@@ -1,10 +1,10 @@
 <template>
-    <GmapMap style="width: 100%; height: 100%;" :zoom="1" :center="{lat: 0, lng: 0}"
+    <GmapMap style="width: 100%; height: 400px;" :zoom="1" :center="{lat: 0, lng: 0}"
         ref="map"
         @click="addMarker"
         >
       <GmapMarker
-        v-for="(marker, index) in markers"
+        v-for="(marker, index) in data.markers"
         :key="index"
         :position="marker.latLng"
         @click="deleteMarker(index)"
@@ -16,8 +16,10 @@
 export default {
   data () {
     return {
-      markers: [],
     }
+  },
+  props: {
+    data: Object
   },
   methods: {
     addMarker(e) {
@@ -25,10 +27,10 @@ export default {
         latLng: e.latLng
       }
 
-      this.markers.push(marker)
+      this.data.markers.push(marker)
     },
     deleteMarker(index) {
-      this.markers.splice(index, 1);
+      this.data.markers.splice(index, 1);
     }
   },
 }

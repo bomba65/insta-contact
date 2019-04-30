@@ -1,11 +1,10 @@
 <template>
     <yandex-map
-        :coords="[0, 0]"
-        zoom="1"
+        :coords="[48, 68]"
+        zoom="3"
         style="width: 100%; height: 100%;"
-        @click="addMarker"
-        :placemarks="placemarks"
-        :cluster-callbacks="{ click: addMarker }"
+        :placemarks="markers"
+        @map-was-initialized="initHandler"
         >
     </yandex-map>
 </template>
@@ -16,31 +15,23 @@ import { yandexMap, ymapMarker } from 'vue-yandex-maps'
 export default {
   data () {
     return {
-        markers: [],
-        placemarks: [
-            {
-                coords: [35.8, 39.8],
-                properties: {}, // define properties here
-                options: {}, // define options here
-                clusterName: "1",
-                balloonTemplate: '<div>"Your custom template"</div>',
-                callbacks: { click: this.addMarker }
-            }
-        ]
+        markers: []
     }
   },
   methods: {
-    addMarker(e) {
-        let marker = {
-            latLng: e.latLng
-        }
-        console.log(2)
-        this.markers.push(marker)
-    },
     deleteMarker(index) {
       this.markers.splice(index, 1);
+    },
+    initHandler(obj){
+        obj.events.add('click', (e) => {
+            let marker = {
+                coords: [e.get('coords')[0], e.get('coords')[1]],
+                callbacks: { click: () => {this.markers.splice(this.markers.length-1, 1)} }
+            }
+            this.markers.push(marker)
+        })
     }
   },
-  components: { yandexMap, ymapMarker }
+  components: { yandexMap, ymapMarker },
 }
 </script>

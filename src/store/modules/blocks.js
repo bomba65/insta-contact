@@ -40,6 +40,12 @@ const mutations = {
     addBlock: (state, payload) => {
         state.blocks.push(payload);
     },
+    editBlock: (state, payload) => {
+        state.blocks[payload.index] = payload.block;
+    },
+    deleteBlock: (state, payload) => {
+        state.blocks.splice(payload, 1);
+    },
     setBlocks: (state, payload) => {
         state.blocks = payload;
     },

@@ -21,7 +21,7 @@
 			<div class="speaker"></div>
 			<div class="screen page">
 				<SortableList lockAxis="y" v-model="blocks" :useDragHandle="true">
-					<SortableItem v-for="(block, index) in blocks" :index="index" :key="index" :item="block"/>
+					<SortableItem v-for="(block, index) in blocks" :index="index" :key="index" :item="block" @edit-modal="editModal(index)"/>
 				</SortableList>
 
 				<b-button type="button" variant="primary" @click="showModal = true">Добавить новый блок</b-button>
@@ -66,6 +66,7 @@
 		      </div>
 		</b-modal>
 		<component :is="currentModal" @go-back="handleShowModal"  @close="handleHideModal"></component>
+		<component v-if="editBlock.type" :is="editBlock.type + 'Modal'" @go-back="handleShowModal"  @close="handleHideModal" :updateBlock="true" :block="editBlock" :indexOfBlock="editBlockIndex"></component>
 	</section>
 </template>
 
@@ -118,8 +119,8 @@ const SortableItem = {
 	},
 	template: `
 	<div class="blocks-list-item" style="z-index: 3;">
-		<div class="block-text">
 		<div v-handle class="block-handle"><span></span></div>
+		<div class="block-text" @click="$emit('edit-modal')">
 			<component :is="item.type" :data="item.data"></component>
 		</div>
 	</div>
@@ -134,58 +135,61 @@ export default {
 			showLinkEditModal: false,
 			newLink: '',
 			currentModal: null,
-    		modalsArray: [
-    			{
-    				tag: 'TextBlockModal',
-    				text: 'Текст',
-    				icon: 'fa-font'
-    			},
-    			{
-    				tag: 'LinkBlockModal',
-    				text: 'Ссылка',
-    				icon: 'fa-link'
-    			},
-    			{
-    				tag: 'SeparatorBlockModal',
-    				text: 'Разделитель',
-    				icon: 'fa-minus'
-    			},
-    			{
-    				tag: 'AvatarBlockModal',
-    				text: 'Аватар',
-    				icon: 'fa-user-circle-o'
-    			},
-    			{
-    				tag: 'FAQBlockModal',
-    				text: 'Вопросы и ответы',
-    				icon: 'fa-question'
-    			},
-    			{
-    				tag: 'MessengersBlockModal',
-    				text: 'Месссенджеры',
-    				icon: 'fa-comments-o'
-    			},
-    			{
-    				tag: 'VideoBlockModal',
-    				text: 'Видео',
-    				icon: 'fa-play-circle'
-					},
-    			{
-    				tag: 'CarouselBlockModal',
-    				text: 'Карусель картинок',
-    				icon: 'fa-image'
-    			},
-    			{
-    				tag: 'SocialLinksBlockModal',
-    				text: 'Социальные сети',
-    				icon: 'fa-share-alt'
-    			},
-    			{
-    				tag: 'MapBlockModal',
-    				text: 'Карта',
-    				icon: 'fa-map-marker'
-    			},
-    		],
+			currentEditModal: null,
+			editBlock: {},
+			editBlockIndex: null,
+			modalsArray: [
+				{
+					tag: 'TextBlockModal',
+					text: 'Текст',
+					icon: 'fa-font'
+				},
+				{
+					tag: 'LinkBlockModal',
+					text: 'Ссылка',
+					icon: 'fa-link'
+				},
+				{
+					tag: 'SeparatorBlockModal',
+					text: 'Разделитель',
+					icon: 'fa-minus'
+				},
+				{
+					tag: 'AvatarBlockModal',
+					text: 'Аватар',
+					icon: 'fa-user-circle-o'
+				},
+				{
+					tag: 'FAQBlockModal',
+					text: 'Вопросы и ответы',
+					icon: 'fa-question'
+				},
+				{
+					tag: 'MessengersBlockModal',
+					text: 'Месссенджеры',
+					icon: 'fa-comments-o'
+				},
+				{
+					tag: 'VideoBlockModal',
+					text: 'Видео',
+					icon: 'fa-play-circle'
+				},
+				{
+					tag: 'CarouselBlockModal',
+					text: 'Карусель картинок',
+					icon: 'fa-image'
+				},
+				{
+					tag: 'SocialLinksBlockModal',
+					text: 'Социальные сети',
+					icon: 'fa-share-alt'
+				},
+				{
+					tag: 'MapBlockModal',
+					text: 'Карта',
+					icon: 'fa-map-marker'
+				},
+			],
 		};
 	},
 	components: {
@@ -223,14 +227,20 @@ export default {
 	},
 	methods: {
         handleShowModal(event, value) {
-            this.showModal = true
+						this.showModal = true
+						this.editBlock = {}
             this.currentModal = null
         },
         handleHideModal(event, value) {
-            this.currentModal = null
+						this.currentModal = null
+						this.editBlock = {}
         },
         swapModal(modal) {
 					this.currentModal = modal
+				},
+				editModal(index) {
+					this.editBlock = this.blocks[index]
+					this.editBlockIndex = index
 				}
     },
 }

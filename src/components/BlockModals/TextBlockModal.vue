@@ -62,7 +62,7 @@
             v-if="updateBlock"
             variant="danger"
             class="float-left align-items-center"
-            @click="goBack"
+            @click="deleteBlock"
           >
               <i class="fa fa-lg fa-trash-o mr-2"></i>
               <span>Удалить</span>
@@ -79,7 +79,16 @@
           <b-button
             variant="primary"
             class="float-right"
+            @click="editBlock"
+            v-if="updateBlock"
+          >
+            Сохранить
+          </b-button>
+          <b-button
+            variant="primary"
+            class="float-right"
             @click="addBlock"
+            v-else
           >
             Сохранить
           </b-button>
@@ -109,6 +118,9 @@
           },
           updateBlock: {
             default: false
+          },
+          indexOfBlock: {
+            default: 0
           }
         },
         methods: {
@@ -119,6 +131,14 @@
                 this.$store.commit('blocks/addBlock', this.block)
                 this.$emit('close')
             },
+            editBlock() {
+              this.$store.commit('blocks/editBlock', { block: this.block, index: this.indexOfBlock})
+              this.$emit('close')
+            },
+            deleteBlock() {
+              this.$store.commit('blocks/deleteBlock', this.indexOfBlock)
+              this.$emit('close')
+            }
         },
     }
 </script>

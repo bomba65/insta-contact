@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<a :href="'tg://resolve?domain=' + data.userName">{{ data.linkText }}</a>
+		<a :href="'viber://chat?number=' + data.phoneNumber">{{ data.linkText }}</a>
 	</div>
 </template>
 

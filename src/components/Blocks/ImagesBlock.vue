@@ -1,16 +1,16 @@
 <template>
     <div>
        <img
-        src="img/avatars/6.jpg"
-        class="img-avatar"
-        :style="'width: ' + data.size + 'px'"
+        :src="image"
+        class="img-thumbnail"
+        :key="index"
+        v-for="(image, index) in data.images"
         alt="admin@bootstrapmaster.com" />
     </div>
 </template>
 
 <script>
     export default {
-        name: 'text-block',
         data() {
             return {
 
@@ -22,8 +22,11 @@
     }
 </script>
 
-<style scoped>
-    div {
-        text-align: center;
+<style scoped lang="scss">
+    img {
+        margin-bottom: 10px;
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 </style>

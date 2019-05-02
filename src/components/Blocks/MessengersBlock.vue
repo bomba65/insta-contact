@@ -7,6 +7,11 @@
 <script>
     import WhatsApp from '../../components/Messengers/WhatsApp'
     import Telegram from '../../components/Messengers/Telegram'
+    import Vk from '../../components/Messengers/Vk'
+    import Viber from '../../components/Messengers/Viber'
+    import Facebook from '../../components/Messengers/Facebook'
+    import Skype from '../../components/Messengers/Skype'
+    import Line from '../../components/Messengers/Line'
     
     export default {
         
@@ -18,7 +23,12 @@
         },
         components: {
             WhatsApp,
-            Telegram
+            Telegram,
+            Viber,
+            Vk,
+            Facebook,
+            Line,
+            Skype
         },
         props: ['data'],
     }

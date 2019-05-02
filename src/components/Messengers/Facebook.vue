@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<a :href="'tg://resolve?domain=' + data.userName">{{ data.linkText }}</a>
+		<a :href="'https://m.me/' + data.userName">{{ data.linkText }}</a>
 	</div>
 </template>
 

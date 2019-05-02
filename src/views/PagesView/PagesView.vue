@@ -74,7 +74,7 @@
 
 import { ContainerMixin, ElementMixin, HandleDirective } from 'vue-slicksort'
 import TextBlockModal from '../../components/BlockModals/TextBlockModal'
-import AvatarBlockModal from '../../components/BlockModals/AvatarBlockModal'
+import ImagesBlockModal from '../../components/BlockModals/ImagesBlockModal'
 import LinkBlockModal from '../../components/BlockModals/LinkBlockModal'
 import SeparatorBlockModal from '../../components/BlockModals/SeparatorBlockModal'
 import SocialLinksBlockModal from '../../components/BlockModals/SocialLinksBlockModal'
@@ -82,9 +82,10 @@ import VideoBlockModal from '../../components/BlockModals/VideoBlockModal'
 import FAQBlockModal from '../../components/BlockModals/FAQBlockModal'
 import MapBlockModal from '../../components/BlockModals/MapBlockModal'
 import MessengersBlockModal from '../../components/BlockModals/MessengersBlockModal'
+import CarouselBlockModal from '../../components/BlockModals/CarouselBlockModal'
 
 import TextBlock from '../../components/Blocks/TextBlock'
-import AvatarBlock from '../../components/Blocks/AvatarBlock'
+import ImagesBlock from '../../components/Blocks/ImagesBlock'
 import LinkBlock from '../../components/Blocks/LinkBlock'
 import SeparatorBlock from '../../components/Blocks/SeparatorBlock'
 import SocialLinksBlock from '../../components/Blocks/SocialLinksBlock'
@@ -92,6 +93,7 @@ import VideoBlock from '../../components/Blocks/VideoBlock'
 import FAQBlock from '../../components/Blocks/FAQBlock'
 import MapBlock from '../../components/Blocks/MapBlock'
 import MessengersBlock from '../../components/Blocks/MessengersBlock'
+import CarouselBlock from '../../components/Blocks/CarouselBlock'
 
 const SortableList = {
 	mixins: [ContainerMixin],
@@ -108,7 +110,7 @@ const SortableItem = {
 	directives: { handle: HandleDirective },
 	components: {
 		TextBlock,
-		AvatarBlock,
+		ImagesBlock,
 		LinkBlock,
 		SeparatorBlock,
 		MapBlock,
@@ -116,11 +118,13 @@ const SortableItem = {
 		FAQBlock,
 		MessengersBlock,
 		SocialLinksBlock,
+		CarouselBlock
 	},
 	template: `
 	<div class="blocks-list-item" style="z-index: 3;">
 		<div v-handle class="block-handle"><span></span></div>
-		<div class="block-text" @click="$emit('edit-modal')">
+		<div class="block-text">
+			<div class="block-edit" @click="$emit('edit-modal')"></div>
 			<component :is="item.type" :data="item.data"></component>
 		</div>
 	</div>
@@ -155,8 +159,8 @@ export default {
 					icon: 'fa-minus'
 				},
 				{
-					tag: 'AvatarBlockModal',
-					text: 'Аватар',
+					tag: 'ImagesBlockModal',
+					text: 'Изображения',
 					icon: 'fa-user-circle-o'
 				},
 				{
@@ -196,14 +200,15 @@ export default {
 		SortableItem,
 		SortableList,
 		TextBlockModal,
-		AvatarBlockModal,
+		ImagesBlockModal,
 		LinkBlockModal,
 		SeparatorBlockModal,
 		MapBlockModal,
 		MessengersBlockModal,
 		VideoBlockModal,
 		FAQBlockModal,
-		SocialLinksBlockModal
+		SocialLinksBlockModal,
+		CarouselBlockModal
 	},
 	computed: {
 		pages: {
@@ -246,7 +251,7 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style scoped lang='scss'>
 	.form-control-link {
 		display: flex;
 		font-size: 16px;

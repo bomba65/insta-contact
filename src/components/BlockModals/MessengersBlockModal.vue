@@ -76,6 +76,11 @@
     
     import WhatsAppForm from '../../components/Messengers/WhatsAppForm'
     import TelegramForm from '../../components/Messengers/TelegramForm'
+    import ViberForm from '../../components/Messengers/ViberForm'
+    import VkForm from '../../components/Messengers/VkForm'
+    import FacebookForm from '../../components/Messengers/FacebookForm'
+    import SkypeForm from '../../components/Messengers/SkypeForm'
+    import LineForm from '../../components/Messengers/LineForm'
 
     const SortableList = {
         mixins: [ContainerMixin],
@@ -91,8 +96,13 @@
         props: ['item'],
         directives: { handle: HandleDirective },
         components: {
-		  WhatsAppForm,
-		  TelegramForm
+          WhatsAppForm,
+          TelegramForm,
+          ViberForm,
+          LineForm,
+          SkypeForm,
+          VkForm,
+          FacebookForm
         },
         template: `
 		<div class="form-fields-item">
@@ -106,7 +116,7 @@
             </div>
 
             <div class="form-fields-item-body" v-if="item.isActive">
-                <component :is="item.name + 'Form'" :data="item"></component>
+                <component :is="item.componentName" :data="item"></component>
             </div>
         </div>
         `
@@ -128,6 +138,7 @@
                 linkType: 'default',
                 messengers: [
                     {
+                      componentName: 'WhatsAppForm', 
                       name: 'WhatsApp',
                       linkText: '',
                       phoneNumber: '',
@@ -135,7 +146,43 @@
                       isActive: false
                     },
                     {
-                                  name: 'Telegram',
+                      componentName: 'ViberForm',
+                      name: 'Viber',
+                      linkText: '',
+                      phoneNumber: '',
+                      isActive: false
+                    },
+                    {
+                      componentName: 'TelegramForm',
+                      name: 'Telegram',
+                      linkText: '',
+                      userName: '',
+                      isActive: false
+                    },
+                    {
+                      componentName: 'FacebookForm',
+                      name: 'Facebook Messenger',
+                      linkText: '',
+                      userName: '',
+                      isActive: false
+                    },
+                    {
+                      componentName: 'VkForm',
+                      name: 'ВКонтакте',
+                      linkText: '',
+                      userName: '',
+                      isActive: false
+                    },
+                    {
+                      componentName: 'SkypeForm',
+                      name: 'Skype',
+                      linkText: '',
+                      userName: '',
+                      isActive: false
+                    },
+                    {
+                      componentName: 'LineForm',
+                      name: 'Line',
                       linkText: '',
                       userName: '',
                       isActive: false

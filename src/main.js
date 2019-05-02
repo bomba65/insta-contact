@@ -13,6 +13,10 @@ import YmapPlugin from 'vue-yandex-maps'
 
 import 'vue-tel-input/dist/vue-tel-input.css'
 
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
+Vue.use( CKEditor );
+
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyBWMOxisvZSDeGKkASEu1mAQNJn5hZd_AY',

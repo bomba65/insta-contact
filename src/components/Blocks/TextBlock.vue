@@ -1,5 +1,5 @@
 <template>
-    <div :class="data.align" :style="'font-size: ' + data.size">
+    <div v-html="data.text" :class="data.align" :style="'font-size: ' + data.size">
       {{ data.text }}
     </div>
 </template>

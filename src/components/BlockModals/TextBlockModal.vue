@@ -45,13 +45,7 @@
             </b-col>
             <b-col sm="12">
               <label for="textarea-default">Текст</label>
-            </b-col>
-            <b-col sm="12">
-              <b-form-textarea
-                id="textarea-default"
-                placeholder=""
-                v-model="block.data.text"
-              ></b-form-textarea>
+              <ckeditor :editor="editor" v-model="block.data.text"></ckeditor>
             </b-col>
           </b-row>
         </b-tab>
@@ -97,10 +91,12 @@
 </template>
 
 <script>
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
     export default {
         name: 'text-block-modal',
         data() {
             return {
+                editor: ClassicEditor,
                 showModal: true,
             }
         },

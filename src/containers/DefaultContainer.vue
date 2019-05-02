@@ -39,7 +39,10 @@
     <b-modal title="Добавить новую страницу" size="lg" class="modal-primary block-modal-cards" v-model="showNewPageModal">
 			<div>
 				<label>Ссылка страницы</label>
-				<b-form-input type="text" v-model="newPageLink" placeholder=""></b-form-input>
+				<b-form-input :state="validation" v-model="newPageLink"></b-form-input>
+        <b-form-invalid-feedback :state="validation">
+          Длина ссылки должна состоять минимум из 2 символов и быть уникальной
+        </b-form-invalid-feedback>
 			</div>
 			<div slot="modal-footer" class="w-100">
 				
@@ -102,8 +105,8 @@ export default {
   },
   data () {
     return {
+      newPageLink: '',
       showNewPageModal: false,
-      newPageLink: ''
     }
   },
   computed: {
@@ -118,12 +121,18 @@ export default {
 				return this.$store.getters['pages/getPages']
 			}
 		},
+    validation() {
+      if(this.pages.indexOf(this.newPageLink) != -1) return false
+      return this.newPageLink.length > 1
+    }
   },
   methods: {
     changePage(selectedPage) {
       this.$store.commit('pages/setSelectedPage', selectedPage)
     },
     addNewPage() {
+      if(!this.validation) return
+
       this.$store.commit('pages/addPage', this.newPageLink)
       this.newPageLink = ''
       this.showNewPageModal = false

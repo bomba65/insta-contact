@@ -26,7 +26,10 @@
 		<b-modal title="Добавить новую ссылку" size="lg" class="modal-primary block-modal-cards" v-model="showModal">
 			<div>
 				<label>Текст ссылки</label>
-				<b-form-input type="text" v-model="newLink" placeholder=""></b-form-input>
+				<b-form-input :state="validation" v-model="newLink"></b-form-input>
+        <b-form-invalid-feedback :state="validation">
+          Длина ссылки должна состоять минимум из 2 символов и быть уникальной
+        </b-form-invalid-feedback>
 			</div>
 			<div slot="modal-footer" class="w-100">
 				
@@ -65,9 +68,15 @@ export default {
 				return this.$store.getters['links/getLinks']
 			}
 		},
+    validation() {
+      if(this.links.indexOf(this.newLink) != -1) return false
+      return this.newLink.length > 1
+    }
 	},
 	methods: {
 		addLink() {
+			if(!this.validation) return
+			
 			this.$store.commit('links/addLink', this.newLink)
 			this.newLink = ''
 			this.showModal = false

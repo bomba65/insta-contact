@@ -19,6 +19,10 @@
                     {
                     text: 'Открыть сайт',
                     value: ''
+                    },
+                    {
+                    text: 'Ссылка на свою страницу',
+                    value: 'http://localhost:8080/#/pages/'
                     }, {
                     text: 'Отправить эл.письмо',
                     value: 'mailto: '
@@ -31,11 +35,45 @@
             <b-col sm-8>
                 <b-form-input v-if="block.data.linkType == ''" type="text" v-model="block.data.link" placeholder="http://"></b-form-input>
                 <b-form-input v-if="block.data.linkType == 'mailto: '" type="text" v-model="block.data.link" placeholder="example@example.com"></b-form-input>
-                <b-form-input v-if="block.data.linkType == 'tel: '" type="text" v-model="block.data.link" placeholder="+7 775 777 77 77"></b-form-input>
+                <vue-tel-input
+						v-if="block.data.linkType == 'tel: '" 
+						v-model="block.data.link"
+                        placeholder="Укажите ваш номер телефона"
+                        :preferredCountries="['kz']">
+                </vue-tel-input>
+                <b-form-select
+                    :plain="true"
+                    v-if="block.data.linkType == 'http://localhost:8080/#/pages/'"
+                    v-model="block.data.link">
+                    <option :value="page" v-for="(page, index) in pages" :key="index">{{ page }}</option>
+                </b-form-select>
             </b-col>
           </b-row>
         </b-tab>
-        <b-tab title="Настройки"></b-tab>
+        <b-tab title="Настройки">
+            <b-row>
+                <b-col sm="6">
+                    <label>Выберите цвет текста ссылки</label>
+                    <div class="dropdown">
+                        <div class="color-box" :style="'background: ' + block.data.textColor.hex" @click="showDropdown"></div>
+                        <div class="color-picker">
+                            <chrome-picker :value="block.data.textColor" v-model="block.data.textColor"/>
+                            <i class="fa fa-2x fa-window-close" @click="hideDropdown"></i>
+                        </div>
+                    </div>
+                </b-col>
+                <b-col sm="6">
+                    <label>Выберите цвет заднего фона</label>
+                    <div class="dropdown">
+                        <div class="color-box" :style="'background: ' + block.data.bgColor.hex" @click="showDropdown"></div>
+                        <div class="color-picker">
+                            <chrome-picker :value="block.data.bgColor" v-model="block.data.bgColor"/>
+                            <i class="fa fa-2x fa-window-close" @click="hideDropdown"></i>
+                        </div>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-tab>
       </b-tabs>
       <div slot="modal-footer" class="w-100">
           <b-button
@@ -77,8 +115,10 @@
 </template>
 
 <script>
+    import VueTelInput from 'vue-tel-input';
+    import { Chrome } from 'vue-color'
+
     export default {
-        name: 'text-block-modal',
         data() {
             return {
                 showModal: true,
@@ -88,13 +128,19 @@
           block: {
             type: Object,
             default: () => ({
-              type: 'LinkBlock',
-              data: {
-                title: '',
-                subtitle: '',
-                linkType: '',
-                link: '',
-              }
+                type: 'LinkBlock',
+                data: {
+                    title: '',
+                    subtitle: '',
+                    linkType: '',
+                    link: '',
+                    textColor: {
+                        hex: '#000000',
+                    },
+                    bgColor: {
+                        hex: '#eee',
+                    },
+                }
             }),
           },
           updateBlock: {
@@ -119,19 +165,53 @@
             deleteBlock() {
               this.$store.commit('blocks/deleteBlock', this.indexOfBlock)
               this.$emit('close')
+            },
+            showDropdown (event) {
+                event.currentTarget.parentElement.classList.toggle('active')
+            },
+            hideDropdown (event) {
+                event.currentTarget.parentElement.parentElement.classList.toggle('active')
             }
         },
         computed: {
-            
+            pages: {
+              get() {
+                return this.$store.getters['pages/getPages']
+              }
+            },
         },
-        mounted() {
-            
+        components: {
+          VueTelInput,
+          'chrome-picker': Chrome,
         },
-        beforeDestroy() {
-            
-        }
     }
 </script>
 
-<style scoped="">
+<style scoped lang="scss">
+    .dropdown {
+        position: relative;
+
+        .color-box {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 3px rgba(0,0,0,0.5);
+        }
+
+        .color-picker {
+            top: 40px;
+            display: none;
+            position: absolute;
+            i {
+                cursor: pointer;
+                margin-left: 10px;
+            }
+        }
+
+        &.active {
+            .color-picker {
+                display: flex;
+            }
+        }
+    }
 </style>

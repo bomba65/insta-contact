@@ -1,5 +1,5 @@
 <template>
-    <a :href="data.linkType + data.link" class="link-block">
+    <a :href="data.linkType + data.link" class="link-block" :style="{ background: data.bgColor.hex, color: data.textColor.hex}">
         <span class="title">{{ data.title }}</span>
         <span class="subtitle">{{ data.subtitle }}</span>
     </a>
@@ -31,7 +31,6 @@
 
         span {
             display: block;
-            color: #000;
             text-align: center;
         }
 

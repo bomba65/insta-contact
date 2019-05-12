@@ -24,7 +24,7 @@
 					<SortableItem v-for="(block, index) in blocks" :index="index" :key="index" :item="block" @edit-modal="editModal(index)"/>
 				</SortableList>
 
-				<b-button type="button" variant="primary" @click="showModal = true">Добавить новый блок</b-button>
+				<b-button type="button" variant="primary" class="mx-auto d-block" @click="showModal = true">Добавить новый блок</b-button>
 			</div>
 			<div class="home"></div>
 			<div class="bottom-bar"></div>
@@ -99,7 +99,7 @@ const SortableList = {
 	mixins: [ContainerMixin],
 	template: `
 	<div class="blocks-list">
-	<slot />
+		<slot />
 	</div>
 	`
 };
@@ -232,21 +232,21 @@ export default {
 	},
 	methods: {
         handleShowModal(event, value) {
-						this.showModal = true
-						this.editBlock = {}
+			this.showModal = true
+			this.editBlock = {}
             this.currentModal = null
         },
         handleHideModal(event, value) {
-						this.currentModal = null
-						this.editBlock = {}
+			this.currentModal = null
+			this.editBlock = {}
         },
         swapModal(modal) {
-					this.currentModal = modal
-				},
-				editModal(index) {
-					this.editBlock = this.blocks[index]
-					this.editBlockIndex = index
-				}
+			this.currentModal = modal
+		},
+		editModal(index) {
+			this.editBlock = this.blocks[index]
+			this.editBlockIndex = index
+		}
     },
 }
 </script>

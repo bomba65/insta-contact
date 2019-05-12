@@ -3,7 +3,7 @@
         <b-row class="mt-2">
             <b-col sm="12">
               <b-form-group >
-                    <label class="drop-image"  @dragover.prevent @drop="onDrop">
+                    <label class="drop-image" @dragover.prevent @drop="onDrop">
                             <i class="fa fa-2x fa-plus-circle"></i>
                             <span>Добавить избражение</span>
                             <input type="file" @change="onFileChange" class="d-none">

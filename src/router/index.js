@@ -3,10 +3,13 @@ import Router from 'vue-router'
 
 // Containers
 const DefaultContainer = () => import('@/containers/DefaultContainer')
+const PagesContainer = () => import('@/containers/PagesContainer')
 
 // Views
 const PagesView = () => import('@/views/PagesView/PagesView')
 const LinksView = () => import('@/views/LinksView/LinksView')
+const SettingsView = () => import('@/views/SettingsView/SettingsView')
+const ShopView = () => import('@/views/ShopView/ShopView')
 
 // Views - Pages
 const Login = () => import('@/views/pages/Login')
@@ -35,7 +38,25 @@ export default new Router({
         {
           path: 'pages/:link',
           name: 'Pages',
-          component: PagesView
+          redirect: '',
+          component: PagesContainer,
+          children: [
+            {
+              path: '',
+              name: 'Pages',
+              component: PagesView
+            },
+            {
+              path: 'shop',
+              name: 'Shop',
+              component: ShopView
+            },
+            {
+              path: 'settings',
+              name: 'Settings',
+              component: SettingsView
+            },
+          ]
         },
       ]
     },

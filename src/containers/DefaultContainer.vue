@@ -2,18 +2,20 @@
   <div class="app">
     <AppHeader fixed>
       <b-navbar-nav class="">
-        <b-nav-item class="px-3" to="/links">Ссылки</b-nav-item>
+        <b-nav-item class="px-3" :to="{ name: 'Links'}">Ссылки</b-nav-item>
         <b-dropdown
           split
           split-variant="outline-primary"
           variant="primary"
           text="Страницы"
           class="m-2"
-          v-if="name === 'Pages'"
+          v-if="link"
         >
           <b-dropdown-item href="#" v-for="(page, index) in pages" :key="index" @click="changePage(index)">/{{ page }}</b-dropdown-item>
           <b-dropdown-item-button class="dropdown-primary" @click="showNewPageModal=true">Добавить новую страницу</b-dropdown-item-button>
         </b-dropdown>
+        <b-nav-item class="px-3" :to="{ name: 'Settings', params: { link: link }}" v-if="link">Настройки</b-nav-item>
+        <b-nav-item class="px-3" :to="{ name: 'Shop', params: { link: link }}" v-if="link">Магазин</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item class="d-md-down-none">
@@ -110,8 +112,8 @@ export default {
     }
   },
   computed: {
-    name () {
-      return this.$route.name
+    link () {
+      return this.$route.params.link
     },
     list () {
       return this.$route.matched.filter((route) => route.name || route.meta.label )

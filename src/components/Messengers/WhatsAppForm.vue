@@ -6,7 +6,6 @@
 		<label>Укажите ваш номер телефона</label>
 		<vue-tel-input v-model="data.phoneNumber"
 						placeholder="Укажите ваш номер телефона"
-						@onInput="onInput"
 						:preferredCountries="['kz']"
 						class="mb-3">
 		</vue-tel-input>
@@ -36,10 +35,5 @@ export default {
 	components: {
 		VueTelInput,
 	},
-	methods: {
-		onInput({ number, isValid, country }) {
-			console.log(number, isValid, country);
-		},
-	}
 }
 </script>

@@ -54,16 +54,8 @@
                 <b-form-input type="number" v-model="modalData.data.price" placeholder="Цена товара"></b-form-input>
             </b-col>
             <b-col sm="6">
-                <label>Статус товара</label>
-                <b-form-select
-                    :plain="true"
-                    v-model="modalData.data.status"
-                    :options="[
-                    {
-                    text: 'В наличии',
-                    value: 'В наличии'
-                    }]">
-                </b-form-select>
+                <label>Показывать в категориях</label>
+                <multiselect v-model="modalData.data.categories" :options="categories" :multiple="true" selected-label="Выбран" select-label="Добавить категорию" deselect-label="Убрать категорию" placeholder="Выберите категории"></multiselect>
             </b-col>
         </b-row>
         <div slot="modal-footer" class="w-100">
@@ -106,7 +98,7 @@
 </template>
 
 <script>
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
     export default {
         data() {
@@ -125,7 +117,7 @@
                     images: [],
                     description: '',
                     price: 0,
-                    status: 'В наличии'
+                    categories: []
                 },
                 type: '',
                 index: null
@@ -135,6 +127,13 @@
               default: false
           }
         },
+          computed: {
+            categories: {
+              get() {
+                return this.$store.getters['shop/getCategories']
+              }
+            },
+          },
         methods: {
             addProduct() {
                 this.$store.commit('shop/addProduct', this.modalData.data)
@@ -189,6 +188,8 @@
         },
     }
 </script>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style scoped lang="scss">
     .product-image {

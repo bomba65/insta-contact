@@ -13,7 +13,11 @@ import YmapPlugin from 'vue-yandex-maps'
 
 import 'vue-tel-input/dist/vue-tel-input.css'
 
-import CKEditor from '@ckeditor/ckeditor5-vue';
+import CKEditor from '@ckeditor/ckeditor5-vue'
+
+import Multiselect from 'vue-multiselect'
+
+Vue.component('multiselect', Multiselect)
 
 Vue.use( CKEditor );
 

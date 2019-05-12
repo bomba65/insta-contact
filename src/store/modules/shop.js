@@ -44,6 +44,7 @@ const state = {
             status: 'В наличии'
         },
     ],
+    shopName: 'Название Магазина',
     shopStatus: false
 }
 
@@ -76,6 +77,9 @@ const mutations = {
     setProducts: (state, payload) => {
         state.products = payload
     },
+    setShopName: (state, payload) => {
+        state.shopName = payload
+    }
 }
 const actions = {
 

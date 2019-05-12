@@ -117,13 +117,13 @@ export default {
 			get() {
 				return this.$store.getters['settings/getDesign']
 			}
-        },
-        categories: {
+    },
+    categories: {
 			get() {
 				return this.$store.getters['shop/getCategories']
 			}
-        },
-        products: {
+    },
+    products: {
 			get() {
 				return this.$store.getters['shop/getProducts']
 			},
@@ -133,7 +133,7 @@ export default {
 		},
 	},
 	methods: {
-        handleHideModal(event, value) {
+    handleHideModal(event, value) {
 			this.currentModal = null
 			this.editItem = {
                 type: '',

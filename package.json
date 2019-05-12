@@ -33,6 +33,7 @@
     "vue": "^2.6.10",
     "vue-chartjs": "^3.4.2",
     "vue-color": "^2.7.0",
+    "vue-multiselect": "^2.1.6",
     "vue-perfect-scrollbar": "^0.1.0",
     "vue-router": "^3.0.2",
     "vue-slicksort": "^1.1.3",

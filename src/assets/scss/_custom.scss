@@ -260,6 +260,7 @@ body {
 }
 .page-search {
 	top: 55px;
+	z-index: 1;
 	left: 0;
 	right: 0;
 	position: absolute;
@@ -597,6 +598,25 @@ textarea {
 			top: initial;
 			bottom: -5px;
 		}
+	}
+}
+
+//Multiple Select
+
+.multiselect__tags {
+	min-height: 35px !important;
+	padding-top: 5px !important;
+}
+.multiselect__tag, multiselect__placeholder {
+	margin-bottom: 0 !important;
+}
+.multiselect__tag, .multiselect__option--highlight, .multiselect__option--highlight::after, .multiselect__tag-icon:hover {
+	background: $primary !important;
+}
+
+.multiselect__option--highlight {
+	&.multiselect__option--selected, &.multiselect__option--selected::after {
+		background: $danger !important;
 	}
 }
 

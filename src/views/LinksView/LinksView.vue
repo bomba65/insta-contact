@@ -12,7 +12,7 @@
 						class="m-0"
 					>
 
-						<b-button :to="{ name: 'Pages', params: { link: link }}" variant="primary" class="d-block mt-auto">Редактировать ссылку</b-button>
+						<b-button :to="{ name: 'Pages', params: { link: link, page: 'page1' }}" variant="primary" class="d-block mt-auto">Редактировать ссылку</b-button>
 					</b-card>
 				</b-col>
 

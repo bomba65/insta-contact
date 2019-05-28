@@ -15,7 +15,7 @@
                         <i class="fa fa-2x fa-close text-danger"></i>
                     </div>
                 </div>
-                <label href="javascript:void(0);" class="add-link mt-3"  @dragover.prevent @drop="onDrop">
+                <label href="javascript:void(0)" class="add-link mt-3"  @dragover.prevent @drop="onDrop">
                         <i class="fa fa-2x fa-plus-circle mr-2"></i> Изменить избражение
                         <input type="file" @change="onFileChange" class="d-none">
                 </label>
@@ -189,7 +189,6 @@
     }
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style scoped lang="scss">
     .product-image {

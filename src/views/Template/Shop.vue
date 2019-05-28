@@ -1,12 +1,6 @@
 <template>
-    <div class="marvel-device iphone6 mx-auto">
-        <div class="top-bar"></div>
-        <div class="sleep"></div>
-        <div class="volume"></div>
-        <div class="camera"></div>
-        <div class="sensor"></div>
-        <div class="speaker"></div>
-        <div class="screen page-2" :class="design">
+    <div class="screen page-2">
+        <div class="container">
             <div class="page-header">
                 <div class="page-header-items"  @click="toggleSideBar">
                     <i class="icon-menu icons font-2xl d-block"></i>
@@ -47,20 +41,14 @@
             <b-row v-if="products" class="products-list">
                 <b-col cols="6" v-for="(product, index) in products" :key="index" class="products-list-item">
                     <div class="product-image" :style="{ backgroundImage: 'url(' + product.image + ')'}"></div>
-                    <a href="#" class="my-2 d-block">{{ product.name }}</a>
+                    <router-link :to="'/template/shop/product'" class="my-2 d-block">{{ product.name }}</router-link>
                     <b-button class="w-100" variant="primary">Добавить в корзину</b-button>
                 </b-col>
             </b-row>
             <div v-else class="text-center">
                 Товаров нет
             </div>
-
-            <div v-if="whatsAppCall.isActive">
-                <b-button variant="primary" class="w-100">Связаться с нами</b-button>
-            </div>
         </div>
-        <div class="home"></div>
-        <div class="bottom-bar"></div>
     </div>
 </template>
 
@@ -74,24 +62,19 @@ export default {
 		};
     },
     props: {
-        products: {
-            type: Array,
-        },
         shopName: {
             type: String
-        },
-        whatsAppCall: {
-            type: Object,
-            default: () => ({
-                isActive: false,
-                phoneNumber: '',
-            }),
         }
     },
 	computed: {
 		design: {
 			get() {
 				return this.$store.getters['settings/getDesign']
+			}
+        },
+        products: {
+			get() {
+				return this.$store.getters['shop/getProducts']
 			}
         },
         categories: {

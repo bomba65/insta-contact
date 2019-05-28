@@ -17,6 +17,13 @@ const Register = () => import('@/views/pages/Register')
 const Page404 = () => import('@/views/pages/Page404')
 const Page500 = () => import('@/views/pages/Page500')
 
+// Template
+const Main = () => import('@/views/Template/Main')
+const Basket = () => import('@/views/Template/Basket')
+const Product = () => import('@/views/Template/Product')
+const Shop = () => import('@/views/Template/Shop')
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -36,7 +43,7 @@ export default new Router({
           component: LinksView
         },
         {
-          path: 'pages/:link',
+          path: ':link/pages/:page',
           name: 'Pages',
           redirect: '',
           component: PagesContainer,
@@ -61,6 +68,26 @@ export default new Router({
       ]
     },
     {
+      path: '/template',
+      name: 'Template',
+      component: Main,
+    },
+    {
+      path: '/template/shop',
+      name: 'ShopTemplate',
+      component: Shop,
+    },
+    {
+      path: '/template/shop/basket',
+      name: 'BasketTemplate',
+      component: Basket,
+    },
+    {
+      path: '/template/shop/product',
+      name: 'ProductTemplate',
+      component: Product,
+    },
+    {
       path: '/login',
       name: 'Login',
       component: Login,
@@ -79,6 +106,6 @@ export default new Router({
         path: '**',
         name: 'Page404',
         component: Page404
-    }
+    },
   ]
 })

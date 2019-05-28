@@ -1,6 +1,5 @@
 <template>
-	<a :href="'https://vk.com/' + data.userName">
-		<i class="fa fa-2x fa-vk"></i>
+	<a :href="data.link" target="_blank">
 		<span>{{ data.linkText }}</span>
 	</a>
 </template>
@@ -22,6 +21,7 @@ export default {
 
 <style scoped lang="scss">
 	a {
-		background: #4C75A3;
+        color: #000 !important;
+        background: #FFFC00;
 	}
 </style>

@@ -1,7 +1,8 @@
 <template>
-	<div>
-		<a :href="'https://m.me/' + data.userName">{{ data.linkText }}</a>
-	</div>
+	<a :href="'https://m.me/' + data.userName">
+		<i class="fa fa-2x fa-facebook"></i>
+		<span>{{ data.linkText }}</span>
+	</a>
 </template>
 
 <script>
@@ -18,3 +19,9 @@ export default {
 	},
 }
 </script>
+
+<style scoped lang="scss">
+	a {
+		background: #3b5998;
+	}
+</style>

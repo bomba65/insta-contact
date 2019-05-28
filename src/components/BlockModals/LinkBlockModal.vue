@@ -115,7 +115,7 @@
 </template>
 
 <script>
-    import VueTelInput from 'vue-tel-input';
+    import VueTelInput from 'vue-tel-input'
     import { Chrome } from 'vue-color'
 
     export default {

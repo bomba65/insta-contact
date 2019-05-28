@@ -17,7 +17,7 @@ const getters = {
         return state.pages
     },
     getSelectedPage: (state, getters) => {
-        return state.pages[state.selectedPage]
+        return state.selectedPage
     }
 }
 
@@ -26,10 +26,10 @@ const mutations = {
         state.pages.push(payload)
     },
     deletePage: (state, payload) => {
-        state.pages.pull()
+        state.pages.splice(state.selectedPage, 1)
     },
     setPage: (state, payload) => {
-        state.links = payload
+        state.pages[state.selectedPage] = payload
     },
     setSelectedPage: (state, payload) => {
         return state.selectedPage = payload

@@ -1,37 +1,29 @@
 <template>
     <b-modal title="Мессенджеры" size="lg" class="modal-primary block-modal" v-model="showModal" @hidden="$emit('close')">
-      <b-tabs>
-        <b-tab title="Ссылки" active>
-          <b-row>
-            <b-col sm="12">
-                <label>Вид ссылок</label>
-                <b-form-select
-                    :plain="true"
-					class="mb-3"
-                    v-model="block.data.linkType"
-                    :options="[
-                    {
-                    text: 'Иконки приложений',
-                    value: 'icon'
-                    }, {
-                    text: 'Ссылки на всю ширину без оформления',
-                    value: 'default'
-                    }, {
-                    text: 'Ссылки на всю ширину с оформлением',
-                    value: 'block'
-                    }]">
-                </b-form-select>
-            </b-col>
-
-            <b-col>
-              <SortableList lockAxis="y" v-model="block.data.messengers" :useDragHandle="true">
-                <SortableItem v-for="(messenger, index) in block.data.messengers" :index="index" :key="index" :item="messenger"/>
-              </SortableList>
-            </b-col>
-          </b-row>
-        </b-tab>
-        <b-tab title="Настройки"></b-tab>
-      </b-tabs>
+      <b-row>
+        <b-col sm="12">
+            <label>Вид ссылок</label>
+            <b-form-select
+                :plain="true"
+                class="mb-3"
+                v-model="block.data.linkType"
+                :options="[
+                {
+                  text: 'Компактные ссылки без текста',
+                  value: 'compact'
+                  }, {
+                  text: 'Ссылки на всю ширину с текстом',
+                  value: 'default'
+                }]">
+            </b-form-select>
+        </b-col>
+        
+        <b-col>
+          <SortableList lockAxis="y" v-model="block.data.messengers" :useDragHandle="true">
+            <SortableItem v-for="(messenger, index) in block.data.messengers" :index="index" :key="index" :item="messenger"/>
+          </SortableList>
+        </b-col>
+      </b-row>
       <div slot="modal-footer" class="w-100">
           <b-button
             v-if="updateBlock"
@@ -80,7 +72,6 @@
     import VkForm from '../../components/Messengers/VkForm'
     import FacebookForm from '../../components/Messengers/FacebookForm'
     import SkypeForm from '../../components/Messengers/SkypeForm'
-    import LineForm from '../../components/Messengers/LineForm'
 
     const SortableList = {
         mixins: [ContainerMixin],
@@ -99,7 +90,6 @@
           WhatsAppForm,
           TelegramForm,
           ViberForm,
-          LineForm,
           SkypeForm,
           VkForm,
           FacebookForm
@@ -116,7 +106,7 @@
             </div>
 
             <div class="form-fields-item-body" v-if="item.isActive">
-                <component :is="item.componentName" :data="item"></component>
+                <component :is="item.componentName + 'Form'" :data="item"></component>
             </div>
         </div>
         `
@@ -138,7 +128,7 @@
                 linkType: 'default',
                 messengers: [
                     {
-                      componentName: 'WhatsAppForm', 
+                      componentName: 'WhatsApp', 
                       name: 'WhatsApp',
                       linkText: '',
                       phoneNumber: '',
@@ -146,43 +136,36 @@
                       isActive: false
                     },
                     {
-                      componentName: 'ViberForm',
+                      componentName: 'Viber',
                       name: 'Viber',
                       linkText: '',
                       phoneNumber: '',
                       isActive: false
                     },
                     {
-                      componentName: 'TelegramForm',
+                      componentName: 'Telegram',
                       name: 'Telegram',
                       linkText: '',
                       userName: '',
                       isActive: false
                     },
                     {
-                      componentName: 'FacebookForm',
+                      componentName: 'Facebook',
                       name: 'Facebook Messenger',
                       linkText: '',
                       userName: '',
                       isActive: false
                     },
                     {
-                      componentName: 'VkForm',
+                      componentName: 'Vk',
                       name: 'ВКонтакте',
                       linkText: '',
                       userName: '',
                       isActive: false
                     },
                     {
-                      componentName: 'SkypeForm',
+                      componentName: 'Skype',
                       name: 'Skype',
-                      linkText: '',
-                      userName: '',
-                      isActive: false
-                    },
-                    {
-                      componentName: 'LineForm',
-                      name: 'Line',
                       linkText: '',
                       userName: '',
                       isActive: false

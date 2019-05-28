@@ -3,6 +3,14 @@
       <b-tabs>
         <b-tab title="Текст" active>
           <b-row>
+            <b-col sm="12">
+              <label for="textarea-default">Текст</label>
+              <ckeditor :editor="editor" v-model="block.data.text" :style="{ fontSize: block.data.size }"></ckeditor>
+            </b-col>
+          </b-row>
+        </b-tab>
+        <b-tab title="Настройки">
+          <b-row>
             <b-col sm="6">
               <b-form-group >
                 <label>Размер текста</label>
@@ -43,13 +51,8 @@
                 </b-form-select>
               </b-form-group>
             </b-col>
-            <b-col sm="12">
-              <label for="textarea-default">Текст</label>
-              <ckeditor :editor="editor" v-model="block.data.text"></ckeditor>
-            </b-col>
           </b-row>
         </b-tab>
-        <b-tab title="Настройки"></b-tab>
       </b-tabs>
       <div slot="modal-footer" class="w-100">
           <b-button
@@ -91,7 +94,9 @@
 </template>
 
 <script>
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+    import { Chrome } from 'vue-color'
+
     export default {
         name: 'text-block-modal',
         data() {
@@ -136,6 +141,9 @@
               this.$emit('close')
             }
         },
+        components: {
+          'chrome-picker': Chrome,
+        }
     }
 </script>
 

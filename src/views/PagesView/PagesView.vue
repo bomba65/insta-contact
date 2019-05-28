@@ -1,10 +1,10 @@
 <template>
 	<section class="section-pages">
 		<div class="container-fluid">
-			<div class="form-control-link mb-5">
+			<div class="form-control-link mb-md-5 mb-3">
 					<div class="form-control-link-text">
 						<span class="mr-3 d-md-inline d-none">Моя ссылка:</span>
-						<b-link :href="'http://localhost:8080/#/pages/link1'"><span class="d-sm-inline d-none">http://localhost:8080/#/</span>{{ selectedPage }}</b-link>
+						<b-link :to="'/template'"><span class="d-sm-inline d-none">http://localhost:8080/#/{{ $route.params.link }}/</span>{{ $route.params.page }}</b-link>
 					</div>
 					<div>
 						<b-button type="button" variant="primary" @click="showLinkEditModal = true">Редактировать</b-button>
@@ -19,7 +19,7 @@
 			<div class="camera"></div>
 			<div class="sensor"></div>
 			<div class="speaker"></div>
-			<div class="screen page">
+			<div class="screen page" :class="design">
 				<SortableList lockAxis="y" v-model="blocks" :useDragHandle="true">
 					<SortableItem v-for="(block, index) in blocks" :index="index" :key="index" :item="block" @edit-modal="editModal(index)"/>
 				</SortableList>
@@ -31,7 +31,7 @@
 		</div>
 		<b-modal title="Добавить новый блок" size="lg" class="modal-primary block-modal-cards" v-model="showModal">
 			<b-row>
-				<b-col class="block-modal-card" sm="4" md="3" @click="swapModal(modal.tag)" v-for="modal in modalsArray">
+				<b-col class="block-modal-card" sm="4" md="3" @click="swapModal(modal.tag)" v-for="(modal, index) in modalsArray" :key="index">
 					<b-card :header="modal.text" class="text-center">
 						<div class="d-flex justify-content-center align-content-center">
 							<i class="fa fa-2x" :class="modal.icon"></i>
@@ -53,17 +53,33 @@
 		<b-modal title="Настройка ссылки" size="lg" class="modal-primary block-modal-cards" v-model="showLinkEditModal">
 			<div>
 				<label>Ваша ссылка</label>
-				<b-form-input type="text" v-model="newLink" placeholder=""></b-form-input>
+				<b-link class="d-block mb-3" href="javascript:void(0)"><span class="d-sm-inline d-none">http://localhost:8080/#/{{ mainLink }}/{{ pageLink }}</span></b-link>
+
+				<label>Ваша главная ссылка</label>
+				<b-form-input class="mb-3" type="text" v-model="mainLink" placeholder=""></b-form-input>
+
+				<label>Cсылка страницы</label>
+				<b-form-input type="text" v-model="pageLink" placeholder=""></b-form-input>
 			</div>
 			<div slot="modal-footer" class="w-100">
-		        <b-button
-		          variant="secondary"
-		          class="float-right"
-		          @click="showLinkEditModal=false"
-		        >
-		          Закрыть
-		        </b-button>
-		      </div>
+		        
+          <b-button
+            variant="danger"
+            class="float-left align-items-center"
+            @click="deleteLink"
+          >
+              <i class="fa fa-lg fa-trash-o mr-2"></i>
+              <span>Удалить</span>
+          </b-button>
+
+          <b-button
+            variant="primary"
+            class="float-right"
+            @click="setLink"
+          >
+            Сохранить
+          </b-button>
+		  </div>
 		</b-modal>
 		<component :is="currentModal" @go-back="handleShowModal"  @close="handleHideModal"></component>
 		<component v-if="editBlock.type" :is="editBlock.type + 'Modal'" @go-back="handleShowModal"  @close="handleHideModal" :updateBlock="true" :block="editBlock" :indexOfBlock="editBlockIndex"></component>
@@ -73,6 +89,7 @@
 <script>
 
 import { ContainerMixin, ElementMixin, HandleDirective } from 'vue-slicksort'
+
 import TextBlockModal from '../../components/BlockModals/TextBlockModal'
 import ImagesBlockModal from '../../components/BlockModals/ImagesBlockModal'
 import LinkBlockModal from '../../components/BlockModals/LinkBlockModal'
@@ -83,6 +100,7 @@ import FAQBlockModal from '../../components/BlockModals/FAQBlockModal'
 import MapBlockModal from '../../components/BlockModals/MapBlockModal'
 import MessengersBlockModal from '../../components/BlockModals/MessengersBlockModal'
 import CarouselBlockModal from '../../components/BlockModals/CarouselBlockModal'
+import ShopBlockModal from '../../components/BlockModals/ShopBlockModal'
 
 import TextBlock from '../../components/Blocks/TextBlock'
 import ImagesBlock from '../../components/Blocks/ImagesBlock'
@@ -94,6 +112,7 @@ import FAQBlock from '../../components/Blocks/FAQBlock'
 import MapBlock from '../../components/Blocks/MapBlock'
 import MessengersBlock from '../../components/Blocks/MessengersBlock'
 import CarouselBlock from '../../components/Blocks/CarouselBlock'
+import ShopBlock from '../../components/Blocks/ShopBlock'
 
 const SortableList = {
 	mixins: [ContainerMixin],
@@ -118,11 +137,12 @@ const SortableItem = {
 		FAQBlock,
 		MessengersBlock,
 		SocialLinksBlock,
-		CarouselBlock
+		CarouselBlock,
+		ShopBlock
 	},
 	template: `
 	<div class="blocks-list-item" style="z-index: 3;">
-		<div v-handle class="block-handle"><span></span></div>
+		<div v-handle class="block-handle"><i class="icon-menu icons d-block"></i></div>
 		<div class="block-text">
 			<div class="block-edit" @click="$emit('edit-modal')"></div>
 			<component :is="item.type" :data="item.data"></component>
@@ -137,7 +157,8 @@ export default {
 		return {
 			showModal: false,
 			showLinkEditModal: false,
-			newLink: '',
+			mainLink: this.$route.params.link,
+			pageLink: this.$route.params.page,
 			currentModal: null,
 			currentEditModal: null,
 			editBlock: {},
@@ -193,6 +214,11 @@ export default {
 					text: 'Карта',
 					icon: 'fa-map-marker'
 				},
+				{
+					tag: 'ShopBlockModal',
+					text: 'Магазин',
+					icon: 'fa-shopping-bag'
+				},
 			],
 		};
 	},
@@ -208,7 +234,8 @@ export default {
 		VideoBlockModal,
 		FAQBlockModal,
 		SocialLinksBlockModal,
-		CarouselBlockModal
+		CarouselBlockModal,
+		ShopBlockModal,
 	},
 	computed: {
 		pages: {
@@ -229,9 +256,14 @@ export default {
 				this.$store.commit('blocks/setBlocks', i)
 			}
 		},
+		design: {
+			get() {
+				return this.$store.getters['settings/getDesign']
+			}
+		},
 	},
 	methods: {
-        handleShowModal(event, value) {
+    handleShowModal(event, value) {
 			this.showModal = true
 			this.editBlock = {}
             this.currentModal = null
@@ -246,8 +278,19 @@ export default {
 		editModal(index) {
 			this.editBlock = this.blocks[index]
 			this.editBlockIndex = index
+		},
+		setLink() {
+			this.showLinkEditModal = false
+			this.$store.commit('pages/setPage', this.pageLink)
+			this.$router.push({ name: 'Pages', params: { link: this.mainLink, page: this.pageLink }})
+		},
+		deleteLink() {
+			this.showLinkEditModal = false
+			this.$store.commit('pages/deletePage', this.pageLink)
+			this.$store.commit('pages/setSelectedPage', 0)
+			this.$router.push({ name: 'Pages', params: { link: this.mainLink, page: this.pageLink }})
 		}
-    },
+  },
 }
 </script>
 

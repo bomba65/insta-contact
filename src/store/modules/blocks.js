@@ -20,12 +20,6 @@ const state = {
                 text: 'Текст2'
             }
         },
-        {
-            type: 'AvatarBlock',
-            data: {
-                size: 'small'
-            }
-        }
     ],
 }
 

@@ -1,7 +1,8 @@
 <template>
-	<div>
-		<a :href="'viber://chat?number=' + data.phoneNumber">{{ data.linkText }}</a>
-	</div>
+	<a :href="'viber://chat?number=' + data.phoneNumber">
+		<i class="fa fa-2x fa-phone"></i>
+		<span>{{ data.linkText }}</span>
+	</a>
 </template>
 
 <script>
@@ -18,3 +19,9 @@ export default {
 	},
 }
 </script>
+
+<style scoped lang="scss">
+	a {
+		background: #8f5db7;
+	}
+</style>

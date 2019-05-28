@@ -4,8 +4,8 @@
             <h2>Настройки</h2>
             <b-tabs>
                 <b-tab title="Дизайн" active>
-                    <b-row>
-                        <b-col sm="5">
+                    <b-row class="margin-minus">
+                        <b-col md="5">
                             <div class="marvel-device iphone6 mx-auto">
                                 <div class="top-bar"></div>
                                 <div class="sleep"></div>
@@ -17,21 +17,45 @@
                                     <div>
                                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis hic, laudantium modi accusamus voluptatem laborum quae optio molestias voluptate quas nesciunt, iste nihil magnam doloribus autem omnis repellat quidem eos!
                                     </div>
-                                    <a href="#">asdas</a>
+                                    <div class="mt-2">
+                                        <a href="javascript:void(0)">Ссылка</a>
+                                    </div>
+                                    <div class="mt-2">
+                                        <b-button variant="primary">Кнопка</b-button>
+                                    </div>
                                 </div>
                                 <div class="home"></div>
                                 <div class="bottom-bar"></div>
                             </div>
                         </b-col>
-                        <b-col sm="7">
+                        <b-col md="7" class="margin-plus mt-md-0 mt-4">
                             <b-row class="theme-list">
-                                <b-col sm="2" class="theme-item default" :class="{ active : activeTheme == 'default' }" @click="setDesign('default')">
-                                    <div>Текст</div>
-                                    <a href="#">Ссылка</a>
+                                <b-col sm="6" xl="4">
+                                    <div class="theme-item default" :class="{ active : activeTheme == 'default' }" @click="setDesign('default')">
+                                        <div>Текст</div>
+                                        <div class="link my-1">Ссылка</div>
+                                        <div>
+                                            <b-button variant="primary">Кнопка</b-button>
+                                        </div>
+                                    </div>
                                 </b-col>
-                                <b-col sm="2" class="theme-item red"  :class="{ active : activeTheme == 'red' }" @click="setDesign('red')">
-                                    <div>Текст</div>
-                                    <a href="#">Ссылка</a>
+                                <b-col sm="6" xl="4">
+                                    <div class="theme-item red" :class="{ active : activeTheme == 'red' }" @click="setDesign('red')">
+                                        <div>Текст</div>
+                                        <div class="link my-1">Ссылка</div>
+                                        <div>
+                                            <b-button variant="primary">Кнопка</b-button>
+                                        </div>
+                                    </div>
+                                </b-col>
+                                <b-col sm="6" xl="4">
+                                    <div class="theme-item dark" :class="{ active : activeTheme == 'dark' }" @click="setDesign('dark')">
+                                        <div>Текст</div>
+                                        <div class="link my-1">Ссылка</div>
+                                        <div>
+                                            <b-button variant="primary">Кнопка</b-button>
+                                        </div>
+                                    </div>
                                 </b-col>
                             </b-row>
                         </b-col>
@@ -57,6 +81,7 @@ export default {
 	computed: {
 		design: {
 			get() {
+                this.activeTheme = this.$store.getters['settings/getDesign']
 				return this.$store.getters['settings/getDesign']
 			}
 		},
@@ -75,14 +100,28 @@ export default {
         .theme-item {
             cursor: pointer;
             padding: 15px 0;
+            transition: 0.2s;
             text-align: center;
             border: 2px solid transparent;
 
-            &.active {
-                border: 2px solid #5cb85c;
+            .link {
+                color: #20a8d8;
+            }
+
+            &.active, &:hover {
+                border: 2px solid #20a8d8;
             }
             &.red {
                 color: rgb(253, 106, 98);
+
+                .link {
+                    color: rgb(253, 106, 98);;
+                }
+            }
+
+            &.dark {
+                color: #fff;
+                background: #545657 !important;
             }
         }
     }

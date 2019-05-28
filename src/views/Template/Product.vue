@@ -1,12 +1,6 @@
 <template>
-    <div class="marvel-device iphone6 mx-auto">
-        <div class="top-bar"></div>
-        <div class="sleep"></div>
-        <div class="volume"></div>
-        <div class="camera"></div>
-        <div class="sensor"></div>
-        <div class="speaker"></div>
-        <div class="screen page-2" :class="design">
+    <div class="screen page-2">
+        <div class="container">
             <div class="page-header">
                 <div class="page-header-items"  @click="toggleSideBar">
                     <i class="icon-menu icons font-2xl d-block"></i>
@@ -44,23 +38,26 @@
                 <div class="page-sidebar-closer" @click="toggleSideBar"></div>
             </div>
 
-            <b-row v-if="products" class="products-list">
-                <b-col cols="6" v-for="(product, index) in products" :key="index" class="products-list-item">
-                    <div class="product-image" :style="{ backgroundImage: 'url(' + product.image + ')'}"></div>
-                    <a href="#" class="my-2 d-block">{{ product.name }}</a>
-                    <b-button class="w-100" variant="primary">Добавить в корзину</b-button>
+            <b-row>
+                <b-col sm="4">
+                    <div class="product-image" :style="{ backgroundImage: 'url(' + products[0].image + ')'}"></div>
+                </b-col>
+                <b-col sm="8">
+                    <h3>
+                        {{ products[0].name }}
+                    </h3>
+                    <h5 class="mt-3">Цена: {{ products[0].price }} тг</h5>
+                    <h5 class="mt-3">Описание:</h5>
+                    <div>
+                        {{ products[0].description }}
+                    </div>
+
+                    <div class="mt-3">
+                        <b-button variant="primary">Добавить в корзину</b-button>
+                    </div>
                 </b-col>
             </b-row>
-            <div v-else class="text-center">
-                Товаров нет
-            </div>
-
-            <div v-if="whatsAppCall.isActive">
-                <b-button variant="primary" class="w-100">Связаться с нами</b-button>
-            </div>
         </div>
-        <div class="home"></div>
-        <div class="bottom-bar"></div>
     </div>
 </template>
 
@@ -74,24 +71,19 @@ export default {
 		};
     },
     props: {
-        products: {
-            type: Array,
-        },
         shopName: {
             type: String
-        },
-        whatsAppCall: {
-            type: Object,
-            default: () => ({
-                isActive: false,
-                phoneNumber: '',
-            }),
         }
     },
 	computed: {
 		design: {
 			get() {
 				return this.$store.getters['settings/getDesign']
+			}
+        },
+        products: {
+			get() {
+				return this.$store.getters['shop/getProducts']
 			}
         },
         categories: {
@@ -109,15 +101,10 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-    .products-list {
-        & /deep/ .products-list-item {
-            margin-bottom: 15px;
-            .product-image {
-                border-radius: 3px;
-                padding-bottom: 100%;
-                background-size: cover;
-                background-position: center;
-            }
-        }
+    .product-image {
+        border-radius: 3px;
+        padding-bottom: 100%;
+        background-size: cover;
+        background-position: center;
     }
 </style>

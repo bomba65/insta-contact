@@ -115,9 +115,6 @@ export default {
     link () {
       return this.$route.params.link
     },
-    list () {
-      return this.$route.matched.filter((route) => route.name || route.meta.label )
-    },
     pages: {
 			get() {
 				return this.$store.getters['pages/getPages']

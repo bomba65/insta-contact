@@ -18,14 +18,14 @@
 </template>
 
 <script>
-import VueTelInput from 'vue-tel-input';
+import VueTelInput from 'vue-tel-input'
 
 export default {
 	name: 'WhatsAppForm',
 	data() {
 		return {
 			showForm: false,
-		};
+		}
 	},
 	props: {
 		data: {

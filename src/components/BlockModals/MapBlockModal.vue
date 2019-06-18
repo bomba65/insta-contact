@@ -1,5 +1,5 @@
 <template>
-    <b-modal title="Карта" size="lg" class="modal-primary block-modal" v-model="showModal" @hidden="$emit('close')">
+  <b-modal title="Карта" size="lg" class="modal-primary block-modal" v-model="showModal" @hidden="$emit('close')">
 		<b-tabs>
 			<b-tab title="Карта" active>
 			<b-row>
@@ -65,8 +65,7 @@
             Сохранить
           </b-button>
       </div>
-		</div>
-    </b-modal>
+  </b-modal>
 </template>
 
 <script>

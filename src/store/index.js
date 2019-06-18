@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api, {baseURL} from './api/main'
+import auth from './modules/auth'
 import blocks from './modules/blocks'
 import links from './modules/links'
 import pages from './modules/pages'
@@ -19,6 +20,7 @@ const store = new Vuex.Store({
     actions: {
     },
     modules: {
+        auth,
         blocks,
         links,
         pages,

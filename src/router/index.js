@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import store from '@/store/modules/auth'
+
 // Containers
 const DefaultContainer = () => import('@/containers/DefaultContainer')
 const PagesContainer = () => import('@/containers/PagesContainer')
@@ -14,6 +16,7 @@ const ShopView = () => import('@/views/ShopView/ShopView')
 // Views - Pages
 const Login = () => import('@/views/pages/Login')
 const Register = () => import('@/views/pages/Register')
+const Forgot = () => import('@/views/pages/Forgot')
 const Page404 = () => import('@/views/pages/Page404')
 const Page500 = () => import('@/views/pages/Page500')
 
@@ -23,8 +26,17 @@ const Basket = () => import('@/views/Template/Basket')
 const Product = () => import('@/views/Template/Product')
 const Shop = () => import('@/views/Template/Shop')
 
-
 Vue.use(Router)
+
+export const unrequireAuth = (to, from, next)  => {
+  const isLogged = store.getters['isLogged']
+  console.log(isLogged)
+  if (!isLogged) {
+    next('/login')
+  } else {
+    next()
+  }
+}
 
 export default new Router({
   mode: 'hash', // https://router.vuejs.org/api/#mode
@@ -35,6 +47,7 @@ export default new Router({
       path: '/',
       name: 'Home',
       redirect: 'links',
+      beforeEnter: unrequireAuth,
       component: DefaultContainer,
       children: [
         {
@@ -96,6 +109,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register,
+    },
+    {
+      path: '/forgot',
+      name: 'Forgot',
+      component: Forgot,
     },
     {
       path: '/500',

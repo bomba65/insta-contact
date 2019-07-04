@@ -1,23 +1,22 @@
 import axios from 'axios'
 
-export const baseURL = 'https://cors-anywhere.herokuapp.com/https://instacontact.me/api/rest'
+export const baseURL = 'https://cors-anywhere.herokuapp.com/https://instacontact.me/api'
 
 const api = axios.create({
     baseURL: baseURL,
     headers: {
-        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
     }
 })
 
 api.interceptors.response.use(function (response) {
     return response
-  }, function (error) {
-    if (error.response.status === 401) {
-      store.dispatch('userLogout')
-      $router.push('/login')
-    }
-    return Promise.reject(error)
+}, function (error) {
+	if (error.response.status === 401) {
+		store.dispatch('userLogout')
+		$router.push('/login')
+	}
+	return Promise.reject(error)
 })
 
 export const setAuth = token => { api.defaults.headers.common.Authorization = token }

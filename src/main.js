@@ -17,6 +17,13 @@ import CKEditor from '@ckeditor/ckeditor5-vue'
 
 import Multiselect from 'vue-multiselect'
 
+import VeeValidate from 'vee-validate';
+Vue.use(VeeValidate, {
+  inject: true,
+  fieldsBagName: 'veeFields',
+  errorBagName: 'veeErrors'
+})
+
 Vue.component('multiselect', Multiselect)
 
 Vue.use( CKEditor );

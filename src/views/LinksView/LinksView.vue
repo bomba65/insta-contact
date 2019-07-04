@@ -90,7 +90,6 @@ export default {
 		height: 100%;
 	}
 	.card-body {
-		height: 100%;
 		display: flex;
 		flex-direction: column;
 	}
